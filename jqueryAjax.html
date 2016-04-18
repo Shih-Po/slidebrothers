@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <link rel="stylesheet" href="css/w3.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>jqueryAjax</title>
+</head>
+
+<body>
+    
+    
+</body>
+
+<script>
+	var id = 'tt0114709',
+	omdbURL = 'http://www.omdbapi.com/?i=' + id +'&plot=short&r=json';
+	
+	$.getJSON(omdbURL, function(data) {
+		// console.log(data);
+		
+		// use each function get the json's Index and Element to item[] 
+		var item = [];
+		$.each( data, function( key, val ) {
+			item.push( "<li id='" + key + "'>" + val + "</li>");
+		});
+		
+		// add HTML tags by jquery syntax 'append'
+		$( "<ul/>", {
+			"class": "new-list",
+			html: item.join( "" )
+		}).appendTo( "body" );
+
+	});
+
+</script>
+
+</html>
+
