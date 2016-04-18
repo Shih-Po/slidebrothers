@@ -12,10 +12,12 @@
 <script src="d3-tip.js"></script>
 <script>
 var data = [
-    { 'id':'01', 'name':'AA', 'rateMean':4.5, 'rateStd':3, 'type':'t1' },
-    { 'id':'02', 'name':'BB', 'rateMean':3.5, 'rateStd':1, 'type':'t2'  },
-    { 'id':'03', 'name':'CC', 'rateMean':2.5, 'rateStd':0.5, 'type':'t3'  },
-    { 'id':'04', 'name':'DD', 'rateMean':0.5, 'rateStd':3, 'type':'t4'  },
+    { 'id':'tt0114709', 'name':'AA', 'rateMean':4.5, 'rateStd':3, 'type':'t1' },
+    { 'id':'tt0112346', 'name':'BB', 'rateMean':3.5, 'rateStd':1, 'type':'t2'  },
+    { 'id':'tt0112896', 'name':'CC', 'rateMean':2.5, 'rateStd':0.5, 'type':'t3'  },
+    { 'id':'tt0109906', 'name':'DD', 'rateMean':0.5, 'rateStd':3, 'type':'t4'  },
+    { 'id':'tt0110057', 'name':'DD', 'rateMean':0.5, 'rateStd':3, 'type':'t4'  },
+    { 'id':'tt0111001', 'name':'DD', 'rateMean':0.5, 'rateStd':3, 'type':'t4'  },
 ]
 
 d3.select('body')
@@ -26,7 +28,7 @@ d3.select('body')
         'border': '1px solid gray',
         'margin': '0 auto'
        })
-    .append('svg')
+    .append('svg') //no effect
     .attr({
         'display':'block',
         'width': '90%',
