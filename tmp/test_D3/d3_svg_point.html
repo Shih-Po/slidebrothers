@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script src="d3.v3.min.js" charset="utf-8"></script>
+<script src="d3-tip.js"></script>
+<script>
+var data = [
+    { 'id':'01', 'name':'AA', 'rateMean':4.5, 'rateStd':3, 'type':'t1' },
+    { 'id':'02', 'name':'BB', 'rateMean':3.5, 'rateStd':1, 'type':'t2'  },
+    { 'id':'03', 'name':'CC', 'rateMean':2.5, 'rateStd':0.5, 'type':'t3'  },
+    { 'id':'04', 'name':'DD', 'rateMean':0.5, 'rateStd':3, 'type':'t4'  },
+]
+
+d3.select('body')
+    .append('div')
+    .style({
+        'width': '800px',
+        'height': '400px',
+        'border': '1px solid gray',
+        'margin': '0 auto'
+       })
+    .append('svg')
+    .attr({
+        'display':'block',
+        'width': '90%',
+        'height': '90%',
+        'border':'1px solid gray'
+    });
+
+var circle = d3.select('svg')
+	.selectAll('circle')
+    .data(data).enter()
+    .append('circle')
+    .attr({
+        'cx': function(d, i){ return (d.rateMean + 1) * 50 + 'px'; },
+        'cy': function(d, i){ return (d.rateMean + 1) * 50 + 'px'; },
+        'r': function(d, i){ return (d.rateMean + 1) * 2; },
+        'fill': function(d, i) {
+        	if (d.type === 't1') {
+        		return 'red';
+        	} else if (d.type === 't2') {
+        		return 'orange';
+        	} else if (d.type === 't3') {
+        		return 'yellow';
+        	} else {
+        		return 'green';
+        	}
+        },
+        'stroke': 'black',
+        'stroke-width': '2px'
+    })
+    .on('mouseover', function(){
+    	d3.select(this).attr({'fill': 'blue', 'r':'20'})
+
+    })
+    ;
+
+    circle.on('mouseout', function(){
+    	d3.select(this).attr({'fill': 'white', 'r':'10'})
+    })
+    ;
+</script>
+
+</html>
