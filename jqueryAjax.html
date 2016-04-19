@@ -25,7 +25,7 @@
 		// use each function get the json's Index and Element to item[] 
 		var item = [];
 		$.each( data, function( key, val ) {
-			item.push( "<li id='" + key + "'>" + val + "</li>");
+			item.push( "<li id='" + key + "'>" + key + ": " + val + "</li>");
 		});
 		
 		// add HTML tags by jquery syntax 'append'
