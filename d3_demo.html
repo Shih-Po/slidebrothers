@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="js/angular.min.js"></script>
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <link rel="stylesheet" href="css/w3.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Index</title>
+    <script>
+    // d3.csv('data/movie_rating_short.csv', function(result){
+    //     console.log(result);
+    // })
+    $.getJSON("data/movie_rating_short.json", function(data) {
+        var svg = d3.select('body')
+            .append('div')
+            .style({
+                'width': '800px',
+                'height': '300px',
+                'border': '1px solid gray',
+            })
+            .append('svg') //no effect
+            .attr({
+                'display': 'block',
+                'width': '100%',
+                'height': '100%',
+                'border': '1px solid gray'
+            });
+        var circle = svg
+            .selectAll('circle')
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr({
+                'cx': function(d, i) {
+                    return d.count;
+                },
+                'cy': function(d, i) {
+                    return d.avg * 1000;
+                },
+                'r': function(d, i) {
+                    return 5;
+                },
+                'fill': 'white',
+                'stroke': 'grey',
+                'stroke-width': '2px'
+            })
+            .on('mouseover', mouseOver)
+            .on('mouseout', mouseOut)
+            .on('click', mouseClick);
+        // var text = svg
+        //     .selectAll('text')
+        //     .data(data)
+        //     .enter()
+        //     .append('text')
+        //     .attr({
+        //         'x': function(d, i) {
+        //             return (d.rateMean + 1) * 50 - 10;
+        //         },
+        //         'y': function(d, i) {
+        //             return (d.rateMean) * 50 - 10;
+        //         },
+        //     }).style({
+        //         'display': 'none'
+        //     }).text(function(d, i) {
+        //         return d.name;
+        //     });
+        function mouseOver(d, i) {
+            d3.select(this).attr({
+                'stroke': 'red',
+            });
+            var datum = [].concat(d);
+            d3.select('svg')
+                .selectAll('rect')
+                .data(datum)
+                .enter()
+                .append('rect')
+                .attr({
+                    'x': function(d, i) {
+                        return d.count - 25;
+                    },
+                    'y': function(d, i) {
+                        return d.avg * 1000 - 30;
+                    },
+                    'width': '80px',
+                    'height': '20px',
+                    'stroke': 'black',
+                    // 'stroke-width': '2px',
+                    'fill': 'white',
+                });
+            d3.select('svg')
+                .selectAll('text')
+                .data(datum)
+                .enter()
+                .append('text')
+                .attr({
+                    'x': function(d, i) {
+                        return d.count - 20;
+                    },
+                    'y': function(d, i) {
+                        return d.avg * 1000 - 15;
+                    },
+                }).text(function(d, i) {
+                    return d.id;
+                });
+        }
+
+        function mouseOut(d, i) {
+            d3.select(this).attr({
+                'stroke': 'grey',
+            });
+            // d3.selectAll('text').filter(function(d, j) {
+            //         return j === i;
+            //     })
+            //     .style({
+            //         'display': 'none'
+            //     });
+            d3.select('svg')
+                .selectAll('rect')
+                .remove();
+            d3.select('svg')
+                .selectAll('text')
+                .remove();
+        }
+
+        function mouseClick(d, i) {
+            $('img').remove();
+            var id = 'tt' + d.id,
+                omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=short&r=json';
+            $.getJSON(omdbURL, function(data) {
+                $('div').after('<img src=\"' + data.Poster + '\">');
+            });
+        }
+    });
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
