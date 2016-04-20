@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <script src="js/angular.min.js"></script>
     <script src="js/jquery-1.12.3.min.js"></script>
     <script src="js/d3.min.js"></script>
     <link rel="stylesheet" href="css/w3.css">
@@ -11,11 +12,55 @@
 </head>
 
 <body>
-    
-    
+    <div id="main" style="float:left;width:100%">
+        <header style="height:100px;border:1px solid black">
+            <h1 align="center">Movie Pusher</h1>
+        </header>
+        <div style="height:700px;border:1px solid black">
+            <div id="canvas" style="height:550px;width:80%;border:1px solid black;margin:50px auto;background-color:gray;">
+                <div id="right_pad" style="height:550px;width:20%;border:1px solid black;margin-right:5%;float:right;background-color:yellow;"></div>
+            </div>
+            <div id="bottom_pad" style="height:100px;width:80%;border:1px solid black;margin:50px auto;display:none;background-color:yellow;"></div>
+            <a id="button_show" href="javascript:void(0)" style="clear:left;">&#9776;</a>
+        </div>
+    </div>
+    <div id="side" style="height:800px;width:0%;border:1px solid black;float:right">
+        <a id="button_hide" href="javascript:void(0)">Close &times;</a>
+    </div>
+    <script>
+    $('#button_show').click(function() {
+        $('#side').animate({
+            width: '40%',
+            queue: false
+        });
+        $('#main').animate({
+            width: '60%',
+            queue: false
+        });
+        $('#canvas').animate({
+            height: '450px',
+            queue: false
+        });
+        $('#right_pad').fadeOut();
+        $('#bottom_pad').fadeIn();
+    });
+    $('#button_hide').click(function() {
+        $('#side').animate({
+            width: '0%',
+            queue: false
+        });
+        $('#main').animate({
+            width: '100%',
+            queue: false
+        });
+        $('#canvas').animate({
+            height: '550px',
+            queue: false
+        });
+        $('#right_pad').fadeIn();
+        $('#bottom_pad').fadeOut();
+    });
+    </script>
 </body>
-
-<script>
-</script>
 
 </html>
