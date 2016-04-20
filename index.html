@@ -7,59 +7,293 @@
     <script src="js/d3.min.js"></script>
     <link rel="stylesheet" href="css/w3.css">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
     <title>Index</title>
 </head>
 
-<body>
-    <div id="main" style="float:left;width:100%">
+<body style="overflow: hidden;">
+    <div id="main" style="float:left;width:99%;height:800px;">
         <header style="height:100px;border:1px solid black">
             <h1 align="center">Movie Pusher</h1>
         </header>
         <div style="height:700px;border:1px solid black">
-            <div id="canvas" style="height:550px;width:80%;border:1px solid black;margin:50px auto;background-color:gray;">
-                <div id="right_pad" style="height:550px;width:20%;border:1px solid black;margin-right:5%;float:right;background-color:yellow;"></div>
+            <div id="middle" style="height:550px;width:70%;border:1px solid black;margin:50px auto;background-color:gray;" ng-app="myApp" ng-controller="genresCtrl">
+                <div id="canvas" style="height:100%;width:70%;border:1px solid black;margin:0 auto;background-color:gray;float:left"></div>
+                <div id="right_pad" style="height:550px;width:30%;border:1px solid black;float:right;">
+                    <div class="tag" style="margin:15px 12px;border:1px black solid;background-color:{{x.color}};font-size:16px;color:white;display:inline-block;width:40%;text-align:center;" ng-repeat="x in pairs">
+                        {{x.genre}}
+                    </div>
+                </div>
+                <div id="bottom_pad" style="height:20%;width:100%;border:1px solid black;display:none;float:right">
+                    <div class="tag" style="margin:5px 5px;border:1px black solid;background-color:{{x.color}};font-size:16px;color:white;display:inline-block;width:15%;text-align:center;" ng-repeat="x in pairs">
+                        {{x.genre}}
+                    </div>
+                </div>
             </div>
-            <div id="bottom_pad" style="height:100px;width:80%;border:1px solid black;margin:50px auto;display:none;background-color:yellow;"></div>
-            <a id="button_show" href="javascript:void(0)" style="clear:left;">&#9776;</a>
         </div>
     </div>
     <div id="side" style="height:800px;width:0%;border:1px solid black;float:right">
         <a id="button_hide" href="javascript:void(0)">Close &times;</a>
     </div>
     <script>
-    $('#button_show').click(function() {
-        $('#side').animate({
-            width: '40%',
-            queue: false
-        });
-        $('#main').animate({
-            width: '60%',
-            queue: false
-        });
-        $('#canvas').animate({
-            height: '450px',
-            queue: false
-        });
-        $('#right_pad').fadeOut();
-        $('#bottom_pad').fadeIn();
+    angular.module('myApp', []).controller('genresCtrl', function($scope) {
+
+        $scope.pairs = [{
+            "genre": "Action",
+            "color": "red"
+        }, {
+            "genre": "Adventure",
+            "color": "yellow"
+        }, {
+            "genre": "Animation",
+            "color": "green"
+        }, {
+            "genre": "Children's",
+            "color": "blue"
+        }, {
+            "genre": "Comedy",
+            "color": "purple"
+        }, {
+            "genre": "Crime",
+            "color": "black"
+        }, {
+            "genre": "Documentary",
+            "color": "brown"
+        }, {
+            "genre": "Drama",
+            "color": "cyan"
+        }, {
+            "genre": "Fantasy",
+            "color": "orchid"
+        }, {
+            "genre": "Film-Noir",
+            "color": "salmon"
+        }, {
+            "genre": "Horror",
+            "color": "skyBlue "
+        }, {
+            "genre": "Musical",
+            "color": "paleVioletRed"
+        }, {
+            "genre": "Mystery",
+            "color": "steelBlue "
+        }, {
+            "genre": "Romance",
+            "color": "teal"
+        }, {
+            "genre": "Sci-Fi",
+            "color": "springGreen"
+        }, {
+            "genre": "Thriller",
+            "color": "sandyBrown"
+        }, {
+            "genre": "War",
+            "color": "magenta"
+        }, {
+            "genre": "Western",
+            "color": "navy"
+        }]
     });
+    </script>
+    <script>
     $('#button_hide').click(function() {
         $('#side').animate({
             width: '0%',
             queue: false
         });
         $('#main').animate({
-            width: '100%',
+            width: '99%',
+            queue: false
+        });
+        $('#middle').animate({
+            height: '550px',
             queue: false
         });
         $('#canvas').animate({
-            height: '550px',
+            width: '70%',
+            height: '100%',
             queue: false
         });
         $('#right_pad').fadeIn();
         $('#bottom_pad').fadeOut();
     });
+    </script>
+    <script>
+    $.getJSON("conn.php", function(data) {
+        console.log(data);
+        var svg = d3.select('#canvas')
+            .append('svg') //no effect
+            .attr({
+                'display': 'block',
+                'width': '100%',
+                'height': '100%',
+                'border': '1px solid gray'
+            });
+        var circle = svg
+            .selectAll('circle')
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr({
+                'cx': function(d, i) {
+                    return d.count * 2;
+                },
+                'cy': function(d, i) {
+                    return d.avg * 100;
+                },
+                'r': function(d, i) {
+                    return 3;
+                },
+                'fill': function(d, i) {
+                    var genres = d.genres.split('|');
+                    var genre = genres[0];
+                    var pairs = [{
+                        "genre": "Action",
+                        "color": "red"
+                    }, {
+                        "genre": "Adventure",
+                        "color": "yellow"
+                    }, {
+                        "genre": "Animation",
+                        "color": "green"
+                    }, {
+                        "genre": "Children's",
+                        "color": "blue"
+                    }, {
+                        "genre": "Comedy",
+                        "color": "purple"
+                    }, {
+                        "genre": "Crime",
+                        "color": "black"
+                    }, {
+                        "genre": "Documentary",
+                        "color": "brown"
+                    }, {
+                        "genre": "Drama",
+                        "color": "cyan"
+                    }, {
+                        "genre": "Fantasy",
+                        "color": "orchid"
+                    }, {
+                        "genre": "Film-Noir",
+                        "color": "salmon"
+                    }, {
+                        "genre": "Horror",
+                        "color": "skyBlue "
+                    }, {
+                        "genre": "Musical",
+                        "color": "paleVioletRed"
+                    }, {
+                        "genre": "Mystery",
+                        "color": "steelBlue "
+                    }, {
+                        "genre": "Romance",
+                        "color": "teal"
+                    }, {
+                        "genre": "Sci-Fi",
+                        "color": "springGreen"
+                    }, {
+                        "genre": "Thriller",
+                        "color": "sandyBrown"
+                    }, {
+                        "genre": "War",
+                        "color": "magenta"
+                    }, {
+                        "genre": "Western",
+                        "color": "navy"
+                    }]
+                    for (var i = 0; i < pairs.length; i++){
+                        if (genre===pairs[i].genre){
+                            return pairs[i].color;
+                        }
+                    }
+                },
+                'stroke': 'grey',
+                'stroke-width': '2px'
+            })
+            .on('mouseover', mouseOver)
+            .on('mouseout', mouseOut)
+            .on('click', mouseClick);
+
+        function mouseOver(d, i) {
+            d3.select(this).attr({
+                'stroke': 'red',
+            });
+            var datum = [].concat(d);
+            d3.select('svg')
+                .selectAll('rect')
+                .data(datum)
+                .enter()
+                .append('rect')
+                .attr({
+                    'x': function(d, i) {
+                        return d.count * 2 + 10;
+                    },
+                    'y': function(d, i) {
+                        return d.avg * 100;
+                    },
+                    'width': '200px',
+                    'height': '20px',
+                    'stroke': 'black',
+                    'fill': 'white',
+                });
+            d3.select('svg')
+                .selectAll('text')
+                .data(datum)
+                .enter()
+                .append('text')
+                .attr({
+                    'x': function(d, i) {
+                        return d.count * 2 + 15;
+                    },
+                    'y': function(d, i) {
+                        return d.avg * 100 + 15;
+                    },
+                    'font-size': '10'
+                }).text(function(d, i) {
+                    return d.title;
+                });
+        }
+
+        function mouseOut(d, i) {
+            d3.select(this).attr({
+                'stroke': 'grey',
+            });
+            d3.select('svg')
+                .selectAll('rect')
+                .remove();
+            d3.select('svg')
+                .selectAll('text')
+                .remove();
+        }
+
+        function mouseClick(d, i) {
+            $('img').remove();
+            var id = 'tt' + d.imdbId,
+                omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=short&r=json';
+            $.getJSON(omdbURL, function(data) {
+                $('#side').prepend('<img src=\"' + data.Poster + '\">');
+            });
+            $('#side').animate({
+                width: '30%',
+                queue: false
+            });
+            $('#main').animate({
+                width: '70%',
+                queue: false
+            });
+            $('#middle').animate({
+                height: '600px',
+                queue: false
+            });
+            $('#canvas').animate({
+                width: '100%',
+                height: '80%',
+                queue: false
+            });
+            $('#right_pad').fadeOut();
+            $('#bottom_pad').fadeIn();
+        }
+    })
     </script>
 </body>
 

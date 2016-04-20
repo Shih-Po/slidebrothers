@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 } 
 $sql = "SELECT imdbId, title, genres, count, avg
 		FROM data
-		LIMIT 100";
+		LIMIT 1000";
 $result = $conn->query($sql);
 
 $outp = "";
