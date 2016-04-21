@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="js/angular.min.js"></script>
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <link rel="stylesheet" href="css/w3.css">
+    <meta charset="utf-8">
+    <title>Index</title>
+</head>
+
+<body style="overflow: hidden;">
+    <header style="height:100px;width:100%;border:1px solid black">
+        <h1 align="center">Movie Pusher</h1>
+    </header>
+    <div id="main" style="float:left;width:99%;height:800px;">
+        <div id="left" style="height:800px;width:0%;border:1px solid black;float:right">
+            <a id="button_hide" href="javascript:void(0)">Close &times;</a>
+        </div>
+        <div id="middle" style="height:550px;width:70%;border:1px solid black;margin:50px auto;background-color:gray;" ng-app="myApp" ng-controller="genresCtrl">
+            <div id="canvas" style="height:100%;width:70%;border:1px solid black;margin:0 auto;background-color:gray;float:left"></div>
+        </div>
+        <div id="right" style="height:550px;width:30%;border:1px solid black;float:right;">
+            <div class="tag" style="margin:15px 12px;border:1px black solid;background-color:{{x.color}};font-size:16px;color:white;display:inline-block;width:40%;text-align:center;" ng-repeat="x in pairs">
+                {{x.genre}}
+            </div>
+        </div>
+    </div>
+    <script>
+    angular.module('myApp', []).controller('genresCtrl', function($scope) {
+
+        $scope.pairs = [{
+            "genre": "Action",
+            "color": "red"
+        }, {
+            "genre": "Adventure",
+            "color": "yellow"
+        }, {
+            "genre": "Animation",
+            "color": "green"
+        }, {
+            "genre": "Children's",
+            "color": "blue"
+        }, {
+            "genre": "Comedy",
+            "color": "purple"
+        }, {
+            "genre": "Crime",
+            "color": "black"
+        }, {
+            "genre": "Documentary",
+            "color": "brown"
+        }, {
+            "genre": "Drama",
+            "color": "cyan"
+        }, {
+            "genre": "Fantasy",
+            "color": "orchid"
+        }, {
+            "genre": "Film-Noir",
+            "color": "salmon"
+        }, {
+            "genre": "Horror",
+            "color": "skyBlue "
+        }, {
+            "genre": "Musical",
+            "color": "paleVioletRed"
+        }, {
+            "genre": "Mystery",
+            "color": "steelBlue "
+        }, {
+            "genre": "Romance",
+            "color": "teal"
+        }, {
+            "genre": "Sci-Fi",
+            "color": "springGreen"
+        }, {
+            "genre": "Thriller",
+            "color": "sandyBrown"
+        }, {
+            "genre": "War",
+            "color": "magenta"
+        }, {
+            "genre": "Western",
+            "color": "navy"
+        }]
+    });
+    </script>
+    <script>
+    $.getJSON("conn.php", function(data) {
+        console.log(data);
+        var svg = d3.select('#canvas')
+            .append('svg') //no effect
+            .attr({
+                'display': 'block',
+                'width': '100%',
+                'height': '100%',
+                'border': '1px solid gray'
+            });
+        var circle = svg
+            .selectAll('circle')
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr({
+                'cx': function(d, i) {
+                    return d.count * 10;
+                },
+                'cy': function(d, i) {
+                    return d.avg * 100;
+                },
+                'r': function(d, i) {
+                    return 3;
+                },
+                'fill': function(d, i) {
+                    var genres = d.genres.split('|');
+                    var idx = Math.floor((Math.random() * genres.length));
+                    var genre = genres[idx];
+                    var pairs = [{
+                        "genre": "Action",
+                        "color": "red"
+                    }, {
+                        "genre": "Adventure",
+                        "color": "yellow"
+                    }, {
+                        "genre": "Animation",
+                        "color": "green"
+                    }, {
+                        "genre": "Children's",
+                        "color": "blue"
+                    }, {
+                        "genre": "Comedy",
+                        "color": "purple"
+                    }, {
+                        "genre": "Crime",
+                        "color": "black"
+                    }, {
+                        "genre": "Documentary",
+                        "color": "brown"
+                    }, {
+                        "genre": "Drama",
+                        "color": "cyan"
+                    }, {
+                        "genre": "Fantasy",
+                        "color": "orchid"
+                    }, {
+                        "genre": "Film-Noir",
+                        "color": "salmon"
+                    }, {
+                        "genre": "Horror",
+                        "color": "skyBlue "
+                    }, {
+                        "genre": "Musical",
+                        "color": "paleVioletRed"
+                    }, {
+                        "genre": "Mystery",
+                        "color": "steelBlue "
+                    }, {
+                        "genre": "Romance",
+                        "color": "teal"
+                    }, {
+                        "genre": "Sci-Fi",
+                        "color": "springGreen"
+                    }, {
+                        "genre": "Thriller",
+                        "color": "sandyBrown"
+                    }, {
+                        "genre": "War",
+                        "color": "magenta"
+                    }, {
+                        "genre": "Western",
+                        "color": "navy"
+                    }]
+                    for (var i = 0; i < pairs.length; i++) {
+                        if (genre === pairs[i].genre) {
+                            return pairs[i].color;
+                        }
+                    }
+                },
+                'stroke': 'grey',
+                'stroke-width': '2px'
+            })
+            .on('mouseover', mouseOver)
+            .on('mouseout', mouseOut)
+            .on('click', mouseClick);
+
+        function mouseOver(d, i) {
+            d3.select(this).attr({
+                'stroke': 'red',
+            });
+            var datum = [].concat(d);
+            d3.select('svg')
+                .selectAll('rect')
+                .data(datum)
+                .enter()
+                .append('rect')
+                .attr({
+                    'x': function(d, i) {
+                        return d.count * 2 + 10;
+                    },
+                    'y': function(d, i) {
+                        return d.avg * 100;
+                    },
+                    'width': '200px',
+                    'height': '20px',
+                    'stroke': 'black',
+                    'fill': 'white',
+                });
+            d3.select('svg')
+                .selectAll('text')
+                .data(datum)
+                .enter()
+                .append('text')
+                .attr({
+                    'x': function(d, i) {
+                        return d.count * 2 + 15;
+                    },
+                    'y': function(d, i) {
+                        return d.avg * 100 + 15;
+                    },
+                    'font-size': '10'
+                }).text(function(d, i) {
+                    return d.avg;
+                });
+        }
+
+        function mouseOut(d, i) {
+            d3.select(this).attr({
+                'stroke': 'grey',
+            });
+            d3.select('svg')
+                .selectAll('rect')
+                .remove();
+            d3.select('svg')
+                .selectAll('text')
+                .remove();
+        }
+
+        function mouseClick(d, i) {
+            $('img').remove();
+            var id = 'tt' + d.imdbId,
+                omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=short&r=json';
+            $.getJSON(omdbURL, function(data) {
+                $('#right').prepend('<img style="display:block;margin:0 auto;" src=\"' + data.Poster + '\">');
+            });
+        }
+    })
+    </script>
+</body>
+
+</html>

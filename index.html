@@ -135,7 +135,7 @@
             .append('circle')
             .attr({
                 'cx': function(d, i) {
-                    return d.count * 2;
+                    return d.count * 10;
                 },
                 'cy': function(d, i) {
                     return d.avg * 100;
@@ -145,7 +145,8 @@
                 },
                 'fill': function(d, i) {
                     var genres = d.genres.split('|');
-                    var genre = genres[0];
+                    var idx = Math.floor((Math.random() * genres.length));
+                    var genre = genres[idx];
                     var pairs = [{
                         "genre": "Action",
                         "color": "red"
@@ -250,7 +251,7 @@
                     },
                     'font-size': '10'
                 }).text(function(d, i) {
-                    return d.title;
+                    return d.avg;
                 });
         }
 
@@ -271,7 +272,7 @@
             var id = 'tt' + d.imdbId,
                 omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=short&r=json';
             $.getJSON(omdbURL, function(data) {
-                $('#side').prepend('<img src=\"' + data.Poster + '\">');
+                $('#side').prepend('<img style="display:block;margin:0 auto;" src=\"' + data.Poster + '\">');
             });
             $('#side').animate({
                 width: '30%',
