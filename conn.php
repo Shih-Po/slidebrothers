@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "127.0.0.1";
 $username = "root";
 $password = "courage00";
 $dbname = "movie";
@@ -13,6 +13,7 @@ if ($conn->connect_error) {
 } 
 $sql = "SELECT imdbId, title, genres, count, avg
 		FROM data
+		ORDER BY RAND()
 		LIMIT 1000";
 $result = $conn->query($sql);
 
