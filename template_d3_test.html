@@ -80,18 +80,18 @@ div {
         <div class="tag" value="{{x.color}}" style="background-color:{{x.color}};" ng-repeat="x in pairs">
             <a href="#">{{x.genre}}</a>
         </div>
-        </div>
-        <div id="div-middle">
-            <!-- <h1>Map</h1> -->
-        </div>
-        <div id="div-right">
-        </div>
+    </div>
+    <div id="div-middle">
+        <!-- <h1>Map</h1> -->
+    </div>
+    <div id="div-right">
+    </div>
 </body>
 <!-- angularjs -->
 <script>
 angular.module('myApp', []).controller('genresCtrl', function($scope) {
 
-        $scope.pairs = [{
+    $scope.pairs = [{
         "genre": "Action",
         "color": "#ffc857"
     }, {
@@ -101,7 +101,7 @@ angular.module('myApp', []).controller('genresCtrl', function($scope) {
         "genre": "Animation",
         "color": "#c5283d"
     }, {
-        "genre": "Children's",
+        "genre": "Children",
         "color": "#255f85"
     }, {
         "genre": "Comedy",
@@ -149,30 +149,30 @@ angular.module('myApp', []).controller('genresCtrl', function($scope) {
 });
 </script>
 <script>
-// // genres = ["Action",
-//     "Adventure",
-//     "Animation",
-//     "Children's",
-//     "Comedy",
-//     "Crime",
-//     "Documentary",
-//     "Drama",
-//     "Fantasy",
-//     "Film-Noir",
-//     "Horror",
-//     "Musical",
-//     "Mystery",
-//     "Romance",
-//     "Sci-Fi",
-//     "Thriller",
-//     "War",
-//     "Western"
-// ]
+var genres = ["Action",
+    "Adventure",
+    "Animation",
+    "Children",
+    "Comedy",
+    "Crime",
+    "Documentary",
+    "Drama",
+    "Fantasy",
+    "Film-Noir",
+    "Horror",
+    "Musical",
+    "Mystery",
+    "Romance",
+    "Sci-Fi",
+    "Thriller",
+    "War",
+    "Western"
+]
 $.post("conn.php", {
-        genres: ["Action","Adventure"]
+        genres: genres
     },
     function(data, status) {
-        alert("Data: " + data + "\nStatus: " + status);
+        // alert("Data: " + data + "\nStatus: " + status);
         data = JSON.parse(data);
         var svg = d3.select('body div#div-middle')
             .append('div')
@@ -206,60 +206,60 @@ $.post("conn.php", {
                     var genres = d.genres.split('|');
                     var genre = genres[0];
                     var pairs = [{
-        "genre": "Action",
-        "color": "#ffc857"
-    }, {
-        "genre": "Adventure",
-        "color": "#e9724c"
-    }, {
-        "genre": "Animation",
-        "color": "#c5283d"
-    }, {
-        "genre": "Children's",
-        "color": "#255f85"
-    }, {
-        "genre": "Comedy",
-        "color": "#CEEC97"
-    }, {
-        "genre": "Crime",
-        "color": "#576CA8"
-    }, {
-        "genre": "Documentary",
-        "color": "#242423"
-    }, {
-        "genre": "Drama",
-        "color": "#75f4f4"
-    }, {
-        "genre": "Fantasy",
-        "color": "#d999b9"
-    }, {
-        "genre": "Film-Noir",
-        "color": "#de3ca0"
-    }, {
-        "genre": "Horror",
-        "color": "#fee2c8 "
-    }, {
-        "genre": "Musical",
-        "color": "#12664F"
-    }, {
-        "genre": "Mystery",
-        "color": "#774E24 "
-    }, {
-        "genre": "Romance",
-        "color": "#9db997"
-    }, {
-        "genre": "Sci-Fi",
-        "color": "#90e0f3"
-    }, {
-        "genre": "Thriller",
-        "color": "#b8b3e9"
-    }, {
-        "genre": "War",
-        "color": "#5d3d62"
-    }, {
-        "genre": "Western",
-        "color": "#d17b88"
-    }]
+                        "genre": "Action",
+                        "color": "#ffc857"
+                    }, {
+                        "genre": "Adventure",
+                        "color": "#e9724c"
+                    }, {
+                        "genre": "Animation",
+                        "color": "#c5283d"
+                    }, {
+                        "genre": "Children",
+                        "color": "#255f85"
+                    }, {
+                        "genre": "Comedy",
+                        "color": "#CEEC97"
+                    }, {
+                        "genre": "Crime",
+                        "color": "#576CA8"
+                    }, {
+                        "genre": "Documentary",
+                        "color": "#242423"
+                    }, {
+                        "genre": "Drama",
+                        "color": "#75f4f4"
+                    }, {
+                        "genre": "Fantasy",
+                        "color": "#d999b9"
+                    }, {
+                        "genre": "Film-Noir",
+                        "color": "#de3ca0"
+                    }, {
+                        "genre": "Horror",
+                        "color": "#fee2c8 "
+                    }, {
+                        "genre": "Musical",
+                        "color": "#12664F"
+                    }, {
+                        "genre": "Mystery",
+                        "color": "#774E24 "
+                    }, {
+                        "genre": "Romance",
+                        "color": "#9db997"
+                    }, {
+                        "genre": "Sci-Fi",
+                        "color": "#90e0f3"
+                    }, {
+                        "genre": "Thriller",
+                        "color": "#b8b3e9"
+                    }, {
+                        "genre": "War",
+                        "color": "#5d3d62"
+                    }, {
+                        "genre": "Western",
+                        "color": "#d17b88"
+                    }]
                     for (var i = 0; i < pairs.length; i++) {
                         if (genre === pairs[i].genre) {
                             return pairs[i].color;
@@ -273,7 +273,7 @@ $.post("conn.php", {
             .on('mouseout', mouseOut)
             .on('click', mouseClickOnCircle);
 
-        var button = d3.selectAll('body div#div-left div.tag')
+        $('body div#div-left div.tag')
             .on('click', mouseClickOnButton);
     });
 </script>

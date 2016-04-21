@@ -12,6 +12,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 $genres = $_POST["genres"];
+if ($genres == null) {
+    echo('[]');
+}
+else {
 $sql = "SELECT imdbId, title, genres, count, avg
         FROM data
         WHERE ";
@@ -36,5 +40,5 @@ $outp ='['.$outp.']';
 $conn->close();
 
 echo($outp);
-
+}
 ?>
