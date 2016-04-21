@@ -48,7 +48,7 @@ div {
 
 .tag {
     margin: 2px 2px;
-    border: 1px black solid;
+    /*border: 1px black solid;*/
     display: inline-block;
     width: 46%;
     background-color: black;
@@ -76,7 +76,7 @@ div {
         <h1>Header</h1>
     </header>
     <!-- angularjs version  -->
-    <<div id="div-left" ng-app="myApp" ng-controller="genresCtrl">
+    <div id="div-left" ng-app="myApp" ng-controller="genresCtrl">
         <div class="tag" value="{{x.color}}" style="background-color:{{x.color}};" ng-repeat="x in pairs">
             <a href="#">{{x.genre}}</a>
         </div>
@@ -91,60 +91,60 @@ div {
 <script>
 angular.module('myApp', []).controller('genresCtrl', function($scope) {
 
-    $scope.pairs = [{
+        $scope.pairs = [{
         "genre": "Action",
-        "color": "red"
+        "color": "#ffc857"
     }, {
         "genre": "Adventure",
-        "color": "yellow"
+        "color": "#e9724c"
     }, {
         "genre": "Animation",
-        "color": "green"
+        "color": "#c5283d"
     }, {
         "genre": "Children's",
-        "color": "blue"
+        "color": "#255f85"
     }, {
         "genre": "Comedy",
-        "color": "purple"
+        "color": "#CEEC97"
     }, {
         "genre": "Crime",
-        "color": "black"
+        "color": "#576CA8"
     }, {
         "genre": "Documentary",
-        "color": "brown"
+        "color": "#242423"
     }, {
         "genre": "Drama",
-        "color": "cyan"
+        "color": "#75f4f4"
     }, {
         "genre": "Fantasy",
-        "color": "orchid"
+        "color": "#d999b9"
     }, {
         "genre": "Film-Noir",
-        "color": "salmon"
+        "color": "#de3ca0"
     }, {
         "genre": "Horror",
-        "color": "skyBlue "
+        "color": "#fee2c8 "
     }, {
         "genre": "Musical",
-        "color": "paleVioletRed"
+        "color": "#12664F"
     }, {
         "genre": "Mystery",
-        "color": "steelBlue "
+        "color": "#774E24 "
     }, {
         "genre": "Romance",
-        "color": "teal"
+        "color": "#9db997"
     }, {
         "genre": "Sci-Fi",
-        "color": "springGreen"
+        "color": "#90e0f3"
     }, {
         "genre": "Thriller",
-        "color": "sandyBrown"
+        "color": "#b8b3e9"
     }, {
         "genre": "War",
-        "color": "magenta"
+        "color": "#5d3d62"
     }, {
         "genre": "Western",
-        "color": "navy"
+        "color": "#d17b88"
     }]
 });
 </script>
@@ -206,60 +206,60 @@ $.post("conn.php", {
                     var genres = d.genres.split('|');
                     var genre = genres[0];
                     var pairs = [{
-                        "genre": "Action",
-                        "color": "red"
-                    }, {
-                        "genre": "Adventure",
-                        "color": "yellow"
-                    }, {
-                        "genre": "Animation",
-                        "color": "green"
-                    }, {
-                        "genre": "Children's",
-                        "color": "blue"
-                    }, {
-                        "genre": "Comedy",
-                        "color": "purple"
-                    }, {
-                        "genre": "Crime",
-                        "color": "black"
-                    }, {
-                        "genre": "Documentary",
-                        "color": "brown"
-                    }, {
-                        "genre": "Drama",
-                        "color": "cyan"
-                    }, {
-                        "genre": "Fantasy",
-                        "color": "orchid"
-                    }, {
-                        "genre": "Film-Noir",
-                        "color": "salmon"
-                    }, {
-                        "genre": "Horror",
-                        "color": "skyBlue "
-                    }, {
-                        "genre": "Musical",
-                        "color": "paleVioletRed"
-                    }, {
-                        "genre": "Mystery",
-                        "color": "steelBlue "
-                    }, {
-                        "genre": "Romance",
-                        "color": "teal"
-                    }, {
-                        "genre": "Sci-Fi",
-                        "color": "springGreen"
-                    }, {
-                        "genre": "Thriller",
-                        "color": "sandyBrown"
-                    }, {
-                        "genre": "War",
-                        "color": "magenta"
-                    }, {
-                        "genre": "Western",
-                        "color": "navy"
-                    }]
+        "genre": "Action",
+        "color": "#ffc857"
+    }, {
+        "genre": "Adventure",
+        "color": "#e9724c"
+    }, {
+        "genre": "Animation",
+        "color": "#c5283d"
+    }, {
+        "genre": "Children's",
+        "color": "#255f85"
+    }, {
+        "genre": "Comedy",
+        "color": "#CEEC97"
+    }, {
+        "genre": "Crime",
+        "color": "#576CA8"
+    }, {
+        "genre": "Documentary",
+        "color": "#242423"
+    }, {
+        "genre": "Drama",
+        "color": "#75f4f4"
+    }, {
+        "genre": "Fantasy",
+        "color": "#d999b9"
+    }, {
+        "genre": "Film-Noir",
+        "color": "#de3ca0"
+    }, {
+        "genre": "Horror",
+        "color": "#fee2c8 "
+    }, {
+        "genre": "Musical",
+        "color": "#12664F"
+    }, {
+        "genre": "Mystery",
+        "color": "#774E24 "
+    }, {
+        "genre": "Romance",
+        "color": "#9db997"
+    }, {
+        "genre": "Sci-Fi",
+        "color": "#90e0f3"
+    }, {
+        "genre": "Thriller",
+        "color": "#b8b3e9"
+    }, {
+        "genre": "War",
+        "color": "#5d3d62"
+    }, {
+        "genre": "Western",
+        "color": "#d17b88"
+    }]
                     for (var i = 0; i < pairs.length; i++) {
                         if (genre === pairs[i].genre) {
                             return pairs[i].color;

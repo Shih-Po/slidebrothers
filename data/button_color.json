@@ -1,0 +1,55 @@
+[{
+        "genre": "Action",
+        "color": "#ffc857"
+    }, {
+        "genre": "Adventure",
+        "color": "#e9724c"
+    }, {
+        "genre": "Animation",
+        "color": "#c5283d"
+    }, {
+        "genre": "Children's",
+        "color": "#255f85"
+    }, {
+        "genre": "Comedy",
+        "color": "#CEEC97"
+    }, {
+        "genre": "Crime",
+        "color": "#576CA8"
+    }, {
+        "genre": "Documentary",
+        "color": "#242423"
+    }, {
+        "genre": "Drama",
+        "color": "#75f4f4"
+    }, {
+        "genre": "Fantasy",
+        "color": "#d999b9"
+    }, {
+        "genre": "Film-Noir",
+        "color": "#de3ca0"
+    }, {
+        "genre": "Horror",
+        "color": "#fee2c8 "
+    }, {
+        "genre": "Musical",
+        "color": "#12664F"
+    }, {
+        "genre": "Mystery",
+        "color": "#774E24 "
+    }, {
+        "genre": "Romance",
+        "color": "#9db997"
+    }, {
+        "genre": "Sci-Fi",
+        "color": "#90e0f3"
+    }, {
+        "genre": "Thriller",
+        "color": "#b8b3e9"
+    }, {
+        "genre": "War",
+        "color": "#5d3d62"
+    }, {
+        "genre": "Western",
+        "color": "#d17b88"
+    }]
