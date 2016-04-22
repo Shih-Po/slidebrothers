@@ -72,12 +72,10 @@ div {
     /*background-color: #FFA042;*/
     transition: -webkit-filter 1s;  
 }
-
 circle:hover {
     r: 18px;
     stroke: white;
 }
-
 #div-right img {
     height: 460px;
 }
@@ -179,19 +177,12 @@ $.post("conn.php", {
             .enter()
             .append('circle')
             .attr({
-                'cx': function(d, i) {
-                    return d.avg * 125 - 30;
-                },
-                'cy': function(d, i) {
-                    return d.count * 1.5 + 10;
-                },
-                'r': function(d, i) {
-                    return 4;
-                },
+                'cx': function(d, i) { return d.avg * 125 - 30; },
+                'cy': function(d, i) { return d.count * 1.4 + 10; },
+                'r': 4,
                 'fill': function(d, i) {
                     var genres = d.genres.split('|');
                     var genre = genres[0];
-                
                     for (var i = 0; i < pairs.length; i++) {
                         if (genre === pairs[i].genre) {
                             return pairs[i].color;

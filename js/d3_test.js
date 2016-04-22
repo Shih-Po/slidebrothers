@@ -65,12 +65,14 @@ function mouseOver(d, i) {
         .data(datum).enter()
         .append('rect')
         .attr({
-            'x': function(d, i) { return d.count * 1.5 + 10; },
-            'y': function(d, i) { return d.avg * 100; },
-            'width': function(d, i) { return d.title.length * 6.5 },
+            'y': function(d, i) { 
+                if (d.count * 1.40 < 400) { 
+                    return d.count * 1.40 + 30;
+                } else { return d.count * 1.40 - 30; }
+            },
+            'width': '1280px',
             'height': '20px',
-            'stroke': 'black',
-            'fill': 'white'
+            'fill': 'black'
         });
     d3.select('svg')
         .selectAll('text')
@@ -78,9 +80,16 @@ function mouseOver(d, i) {
         .enter()
         .append('text')
         .attr({
-            'x': function(d, i) { return d.count * 2 + 18; },
-            'y': function(d, i) { return d.avg * 100 + 15; },
-            'font-size': '10'
+            // 'x': function(d, i) { return d.avg * 115; },
+            'x': '50%',
+            'y': function(d, i) { 
+                if (d.count * 1.40 < 400) { 
+                    return d.count * 1.40 + 44;
+                } else { return d.count * 1.40 - 16; }
+            },
+            'font-size': '12',
+            'text-anchor': 'middle',
+            'fill': 'white'
         })
         .text(function(d, i) { return d.title; });
 }
@@ -155,15 +164,9 @@ function mouseClickOnButton() {
                 .enter()
                 .append('circle')
                 .attr({
-                    'cx': function(d, i) {
-                        return d.avg * 125 - 30;
-                    },
-                    'cy': function(d, i) {
-                        return d.count * 1.5 + 10;
-                    },
-                    'r': function(d, i) {
-                        return 4;
-                    },
+                    'cx': function(d, i) { return d.avg * 125 - 30; },
+                    'cy': function(d, i) { return d.count * 1.4 + 10; },
+                    'r': function(d, i) { return 4; },
                     'fill': function(d, i) {
                         var genres_array = d.genres.split('|');
                         
