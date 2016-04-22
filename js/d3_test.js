@@ -57,17 +57,10 @@ var pairs = [{
 
 function mouseOver(d, i) {
     var datum = [].concat(d);
-    var d_this = d3.select(this);
-    // d3.select('svg').append('g').append('g')
-    //     .selectAll('circle')
-    //     .data(datum).enter()
-    //     .append('circle')
-    //     .attr({
-    //         'cx': function(d, i) { return d.avg * 125 - 30; },
-    //         'cy': function(d, i) { return d.count * 1.5 + 10; },
-    //         'r': 15,
-    //         'fill': function(d, i) { return d_this.attr('fill') }
-    //     });
+
+    // bring this circle to top
+    this.parentNode.appendChild(this);
+    
     d3.select('svg').selectAll('rect')
         .data(datum).enter()
         .append('rect')
