@@ -1,7 +1,8 @@
 <?php
 $servername = "127.0.0.1";
 $username = "root";
-$password = "courage00";
+// $password = "courage00";
+$password = "1";
 $dbname = "movie";
 
 // Create connection
@@ -16,8 +17,8 @@ if ($genres == null) {
     echo('[]');
 }
 else {
-$sql = "SELECT imdbId, title, genres, count, avg
-        FROM data
+$sql = "SELECT imdbId, title, genres, count, avg, std
+        FROM data_2
         WHERE ";
 foreach($genres as $genre){
     $sql .= "genres LIKE '%" . $genre . "%' OR ";
@@ -34,7 +35,8 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     $outp .= '"title":"'   . $rs["title"]  . '",';
     $outp .= '"genres":"'  . $rs["genres"] . '",';
     $outp .= '"count":"'   . $rs["count"]  . '",';
-    $outp .= '"avg":"'     . $rs["avg"]    . '"}'; 
+    $outp .= '"avg":"'     . $rs["avg"]    . '",'; 
+    $outp .= '"std":"'     . $rs["std"]    . '"}'; 
 }
 $outp ='['.$outp.']';
 $conn->close();

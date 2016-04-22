@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+var selected_genres = ["X", "C", "D", "E", "F"]
+var genres_array = ["A", "B", "C"];
+
+
+// function checkGenre(selected_genres, genres_array) {
+    var i = Math.floor(Math.random() * genres_array.length);
+
+    while (selected_genres.indexOf(genres_array[i]) === -1) {
+        console.log(genres_array[i]);
+        i = Math.floor(Math.random() * genres_array.length);
+    }
+    console.log(genres_array[i] + "!");
+// }
+</script>
+
+</html>

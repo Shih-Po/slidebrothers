@@ -14,12 +14,16 @@
 </head>
 <style>
 * {
-    margin: 2px;
-    padding: 1px;
+    background-color: black;
+    color: white;
 }
 
 header {
     text-align: left;
+    padding: 0 20px;
+}
+header h1 {
+    font-family: cursive;
 }
 
 div {
@@ -37,18 +41,17 @@ div {
 #div-middle {
     float: left;
     display: block;
-    width: 50%;
+    width: 54%;
 }
 
 #div-right {
     float: left;
     display: block;
-    width: 30%;
+    width: 28%;
 }
 
 .tag {
-    margin: 2px 2px;
-    /*border: 1px black solid;*/
+    /*margin: 2px 2px;*/
     display: inline-block;
     width: 46%;
     background-color: black;
@@ -56,8 +59,8 @@ div {
     text-align: center;
     font-size: 12px;
     /* 文字行高與div高度相同時，文字垂直置中 */
-    line-height: 30px;
-    height: 40px;
+    line-height: 51px;
+    height: 51px;
 }
 
 .tag a {
@@ -67,89 +70,43 @@ div {
 
 .tag:hover {
     /*background-color: #FFA042;*/
-    /*cursor: pointer;*/
+    /*transition: font-size 5s;  */
 }
+
+circle:hover {
+    r: 25px;
+}
+
+#div-right img {
+    height: 460px;
+}
+
 </style>
 
 <body>
     <header>
-        <h1>Header</h1>
+        <h1>Push every movie you love.</h1>
     </header>
-    <!-- angularjs version  -->
-    <div id="div-left" ng-app="myApp" ng-controller="genresCtrl">
-        <div class="tag" value="{{x.color}}" style="background-color:{{x.color}};" ng-repeat="x in pairs">
-            <a href="#">{{x.genre}}</a>
+        <div id="div-left" ng-app="myApp" ng-controller="genresCtrl">
+            <div class="tag" value="{{x.color}}" style="background-color:{{x.color}};" ng-repeat="x in ng_pairs">
+                <a href="#">{{x.genre}}</a>
+            </div>
         </div>
-    </div>
-    <div id="div-middle">
-        <!-- <h1>Map</h1> -->
-    </div>
-    <div id="div-right">
-    </div>
+        <div id="div-middle">
+            <!-- <h1>Map</h1> -->
+        </div>
+        <div id="div-right">
+        </div>
 </body>
 <!-- angularjs -->
 <script>
 angular.module('myApp', []).controller('genresCtrl', function($scope) {
-
-    $scope.pairs = [{
-        "genre": "Action",
-        "color": "#ffc857"
-    }, {
-        "genre": "Adventure",
-        "color": "#e9724c"
-    }, {
-        "genre": "Animation",
-        "color": "#c5283d"
-    }, {
-        "genre": "Children",
-        "color": "#255f85"
-    }, {
-        "genre": "Comedy",
-        "color": "#CEEC97"
-    }, {
-        "genre": "Crime",
-        "color": "#576CA8"
-    }, {
-        "genre": "Documentary",
-        "color": "#242423"
-    }, {
-        "genre": "Drama",
-        "color": "#75f4f4"
-    }, {
-        "genre": "Fantasy",
-        "color": "#d999b9"
-    }, {
-        "genre": "Film-Noir",
-        "color": "#de3ca0"
-    }, {
-        "genre": "Horror",
-        "color": "#fee2c8 "
-    }, {
-        "genre": "Musical",
-        "color": "#12664F"
-    }, {
-        "genre": "Mystery",
-        "color": "#774E24 "
-    }, {
-        "genre": "Romance",
-        "color": "#9db997"
-    }, {
-        "genre": "Sci-Fi",
-        "color": "#90e0f3"
-    }, {
-        "genre": "Thriller",
-        "color": "#b8b3e9"
-    }, {
-        "genre": "War",
-        "color": "#5d3d62"
-    }, {
-        "genre": "Western",
-        "color": "#d17b88"
-    }]
+    // pairs is an array from d3_test.js
+    $scope.ng_pairs = pairs;
 });
 </script>
 <script>
-var genres = ["Action",
+var selected_genres = ["Action",
     "Adventure",
     "Animation",
     "Children",
@@ -169,23 +126,51 @@ var genres = ["Action",
     "Western"
 ]
 $.post("conn.php", {
-        genres: genres
+        genres: selected_genres
     },
     function(data, status) {
         // alert("Data: " + data + "\nStatus: " + status);
         data = JSON.parse(data);
         var svg = d3.select('body div#div-middle')
             .append('div')
-            .style({
-                'background-color': '#E0E0E0',
-            })
+            // .style({'border':'1px solid gray'})
             .append('svg') //no effect
             .attr({
+                'margin': '10px 10px',
                 'display': 'block',
+                // 'width': '640px',
                 'width': '100%',
-                'height': '500px',
-                'border': '1px solid gray'
-            });
+                'height': '460px',
+            })
+            .style({ 
+                // 'border': '1px solid gray',
+                // 'background-color': 'black'
+                'background-color': '#F9F9FF' 
+            })
+            ;
+        //svg格線
+        var line1 = svg.append('g').selectAll('line')
+            .data(d3.range(0, 1200, 20)).enter().append('line')
+            .attr({
+                'x1':function(d) {return d;},
+                'y1':0,
+                'x2':function(d) {return d;},
+                'y2':550,
+                'stroke': '#EDEDFF',
+                'fill':'none'
+            })
+            ;
+        var line1 = svg.append('g').selectAll('line')
+           .data(d3.range(0, 550, 20)).enter().append('line')
+           .attr({
+                'x1':0,
+                'y1':function(d) {return d;},
+                'x2':1000,
+                'y2':function(d) {return d;},
+                'stroke': '#EDEDFF',
+                'fill':'none'
+            })
+            ;
 
         var circle = svg
             .selectAll('circle')
@@ -194,80 +179,26 @@ $.post("conn.php", {
             .append('circle')
             .attr({
                 'cx': function(d, i) {
-                    return d.count * 2;
+                    return d.avg * 125 - 30;
                 },
                 'cy': function(d, i) {
-                    return d.avg * 100;
+                    return d.count * 1.5 + 10;
                 },
                 'r': function(d, i) {
-                    return 3;
+                    return 4;
                 },
                 'fill': function(d, i) {
                     var genres = d.genres.split('|');
                     var genre = genres[0];
-                    var pairs = [{
-                        "genre": "Action",
-                        "color": "#ffc857"
-                    }, {
-                        "genre": "Adventure",
-                        "color": "#e9724c"
-                    }, {
-                        "genre": "Animation",
-                        "color": "#c5283d"
-                    }, {
-                        "genre": "Children",
-                        "color": "#255f85"
-                    }, {
-                        "genre": "Comedy",
-                        "color": "#CEEC97"
-                    }, {
-                        "genre": "Crime",
-                        "color": "#576CA8"
-                    }, {
-                        "genre": "Documentary",
-                        "color": "#242423"
-                    }, {
-                        "genre": "Drama",
-                        "color": "#75f4f4"
-                    }, {
-                        "genre": "Fantasy",
-                        "color": "#d999b9"
-                    }, {
-                        "genre": "Film-Noir",
-                        "color": "#de3ca0"
-                    }, {
-                        "genre": "Horror",
-                        "color": "#fee2c8 "
-                    }, {
-                        "genre": "Musical",
-                        "color": "#12664F"
-                    }, {
-                        "genre": "Mystery",
-                        "color": "#774E24 "
-                    }, {
-                        "genre": "Romance",
-                        "color": "#9db997"
-                    }, {
-                        "genre": "Sci-Fi",
-                        "color": "#90e0f3"
-                    }, {
-                        "genre": "Thriller",
-                        "color": "#b8b3e9"
-                    }, {
-                        "genre": "War",
-                        "color": "#5d3d62"
-                    }, {
-                        "genre": "Western",
-                        "color": "#d17b88"
-                    }]
+                
                     for (var i = 0; i < pairs.length; i++) {
                         if (genre === pairs[i].genre) {
                             return pairs[i].color;
                         }
                     }
-                },
-                'stroke': 'grey',
-                'stroke-width': '1px'
+                }
+                // ,'stroke': '#3C3C3C',
+                // 'stroke-width': '1px'
             })
             .on('mouseover', mouseOver)
             .on('mouseout', mouseOut)
