@@ -57,10 +57,26 @@ var pairs = [{
 
 function mouseOver(d, i) {
     var datum = [].concat(d);
-
-    // bring this circle to top
+    // bring this circle to top (easy method)
     this.parentNode.appendChild(this);
-    
+
+    // try to remove this then append a new circle (it can't work)
+    // var this_color = $(this).attr('fill');
+    // d3.select('svg').selectAll('circle')
+    //     .data(datum).enter()
+    //     .attr({
+    //         'cx': function(d, i) { return d.avg * 125 - 30; },
+    //         'cy': function(d, i) { return d.count * 1.4 + 10; },
+    //         'r': 6,
+    //         'fill': this_color
+    //     })        
+    //     .on('mouseover', mouseOver)
+    //     .on('mouseout', mouseOut)
+    //     .on('click', mouseClickOnCircle)
+    // ;
+    // d3.select(this).remove();
+
+    // add movie label
     d3.select('svg').selectAll('rect')
         .data(datum).enter()
         .append('rect')
@@ -72,7 +88,7 @@ function mouseOver(d, i) {
             },
             'width': '1280px',
             'height': '20px',
-            'fill': 'black'
+            'fill': '#535B84'
         });
     d3.select('svg')
         .selectAll('text')
@@ -100,7 +116,6 @@ function mouseOut(d, i) {
         'stroke-width': '',   
         'r': 4
     });
-    // d3.select(this).selectAll('g').selectAll('g').remove();
     d3.select('svg').selectAll('rect').remove();
     d3.select('svg').selectAll('text').remove();
 }
@@ -173,7 +188,7 @@ function mouseClickOnButton() {
                         // check display color includes in selected gen's colors
                         var i = Math.floor(Math.random() * genres_array.length);
                         while (selected_genres.indexOf(genres_array[i]) === -1) {
-                            console.log(genres_array[i]);
+                            // console.log(genres_array[i]);
                             i = Math.floor(Math.random() * genres_array.length);
                          }
 
