@@ -8,84 +8,16 @@
     <script src="js/d3_test.js"></script>
     <script src="js/angular.min.js"></script>
     <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/d3_test.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>d3_test</title>
 </head>
-<style>
-* {
-    background-color: black;
-    color: white;
-}
-
-header {
-    text-align: left;
-    padding: 0 20px;
-}
-header h1 {
-    font-family: cursive;
-}
-
-div {
-    text-align: center;
-    /*border: 1px solid gray;*/
-    /*background-color: #E8E8E8;*/
-}
-
-#div-left {
-    float: left;
-    display: block;
-    width: 18%;
-}
-
-#div-middle {
-    float: left;
-    display: block;
-    width: 54%;
-}
-
-#div-right {
-    float: left;
-    display: block;
-    width: 28%;
-}
-
-.tag {
-    /*margin: 2px 2px;*/
-    display: inline-block;
-    width: 46%;
-    background-color: black;
-    color: white;
-    text-align: center;
-    font-size: 12px;
-    /* 文字行高與div高度相同時，文字垂直置中 */
-    line-height: 51px;
-    height: 51px;
-}
-
-.tag a {
-    display: block;
-    text-decoration: none;
-}
-
-.tag:hover {
-    /*background-color: #FFA042;*/
-    transition: -webkit-filter 1s;  
-}
-circle:hover {
-    r: 18px;
-    stroke: white;
-}
-#div-right img {
-    height: 460px;
-}
-
-</style>
-
 <body>
     <header>
         <h1>Push every movie you love.</h1>
     </header>
+    <div id="container">
         <div id="div-left" ng-app="myApp" ng-controller="genresCtrl">
             <div class="tag" value="{{x.color}}" style="background-color:{{x.color}};" ng-repeat="x in ng_pairs">
                 <a href="#">{{x.genre}}</a>
@@ -96,6 +28,10 @@ circle:hover {
         </div>
         <div id="div-right">
         </div>
+    </div>
+    <div id="div-bottom">
+        <h1>bottom</h1>
+    </div>
 </body>
 <!-- angularjs -->
 <script>
@@ -141,35 +77,40 @@ $.post("conn.php", {
                 'width': '100%',
                 'height': '460px',
             })
-            .style({ 
+            .style({
                 // 'border': '1px solid gray',
                 // 'background-color': 'black'
-                'background-color': '#F9F9FF' 
-            })
-            ;
+                'background-color': '#F9F9FF'
+            });
         //svg格線
         var line1 = svg.append('g').selectAll('line')
             .data(d3.range(0, 1200, 20)).enter().append('line')
             .attr({
-                'x1':function(d) {return d;},
-                'y1':0,
-                'x2':function(d) {return d;},
-                'y2':550,
+                'x1': function(d) {
+                    return d;
+                },
+                'y1': 0,
+                'x2': function(d) {
+                    return d;
+                },
+                'y2': 550,
                 'stroke': '#EDEDFF',
-                'fill':'none'
-            })
-            ;
+                'fill': 'none'
+            });
         var line1 = svg.append('g').selectAll('line')
-           .data(d3.range(0, 550, 20)).enter().append('line')
-           .attr({
-                'x1':0,
-                'y1':function(d) {return d;},
-                'x2':1000,
-                'y2':function(d) {return d;},
+            .data(d3.range(0, 550, 20)).enter().append('line')
+            .attr({
+                'x1': 0,
+                'y1': function(d) {
+                    return d;
+                },
+                'x2': 1000,
+                'y2': function(d) {
+                    return d;
+                },
                 'stroke': '#EDEDFF',
-                'fill':'none'
-            })
-            ;
+                'fill': 'none'
+            });
 
         var circle = svg
             .selectAll('circle')
@@ -177,20 +118,24 @@ $.post("conn.php", {
             .enter()
             .append('circle')
             .attr({
-                'cx': function(d, i) { return d.avg * 125 - 30; },
-                'cy': function(d, i) { return d.count * 1.4 + 10; },
+                'cx': function(d, i) {
+                    return d.avg * 125 - 30;
+                },
+                'cy': function(d, i) {
+                    return d.count * 1.4 + 10;
+                },
                 'r': 4,
                 'fill': function(d, i) {
-                    var genres = d.genres.split('|');
-                    var genre = genres[0];
-                    for (var i = 0; i < pairs.length; i++) {
-                        if (genre === pairs[i].genre) {
-                            return pairs[i].color;
+                        var genres = d.genres.split('|');
+                        var genre = genres[0];
+                        for (var i = 0; i < pairs.length; i++) {
+                            if (genre === pairs[i].genre) {
+                                return pairs[i].color;
+                            }
                         }
                     }
-                }
-                // ,'stroke': '#3C3C3C',
-                // 'stroke-width': '1px'
+                    // ,'stroke': '#3C3C3C',
+                    // 'stroke-width': '1px'
             })
             .on('mouseover', mouseOver)
             .on('mouseout', mouseOut)

@@ -81,10 +81,12 @@ function mouseOver(d, i) {
         .data(datum).enter()
         .append('rect')
         .attr({
-            'y': function(d, i) { 
-                if (d.count * 1.40 < 400) { 
+            'y': function(d, i) {
+                if (d.count * 1.40 < 400) {
                     return d.count * 1.40 + 30;
-                } else { return d.count * 1.40 - 30; }
+                } else {
+                    return d.count * 1.40 - 30;
+                }
             },
             'width': '1280px',
             'height': '20px',
@@ -98,22 +100,26 @@ function mouseOver(d, i) {
         .attr({
             // 'x': function(d, i) { return d.avg * 115; },
             'x': '50%',
-            'y': function(d, i) { 
-                if (d.count * 1.40 < 400) { 
+            'y': function(d, i) {
+                if (d.count * 1.40 < 400) {
                     return d.count * 1.40 + 44;
-                } else { return d.count * 1.40 - 16; }
+                } else {
+                    return d.count * 1.40 - 16;
+                }
             },
             'font-size': '12',
             'text-anchor': 'middle',
             'fill': 'white'
         })
-        .text(function(d, i) { return d.title; });
+        .text(function(d, i) {
+            return d.title;
+        });
 }
 
 function mouseOut(d, i) {
     d3.select(this).attr({
         'stroke': '',
-        'stroke-width': '',   
+        'stroke-width': '',
         'r': 4
     });
     d3.select('svg').selectAll('rect').remove();
@@ -128,7 +134,10 @@ function mouseClickOnCircle(d, i) {
 
     // $('#div-right').append('<h3 id="h3-title">' + d.title + '</h3>');
     $.getJSON(omdbURL, function(data) {
-        $('#div-right').append('<img src=\"' + data.Poster + '\">');
+        $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
+    });
+    $('#div-right').click(function() {
+        $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 800);
     });
 }
 
@@ -159,12 +168,11 @@ function mouseClickOnButton() {
         return genre == clicked;
     }
     if (selected_genres.find(checkExist) == clicked) {
-      selected_genres.splice(selected_genres.indexOf(clicked),1);
+        selected_genres.splice(selected_genres.indexOf(clicked), 1);
+    } else {
+        selected_genres.push(clicked);
     }
-    else{
-      selected_genres.push(clicked);
-    }
-    
+
     // alert(genres);
     $.post("conn.php", {
             "genres": selected_genres
@@ -179,21 +187,27 @@ function mouseClickOnButton() {
                 .enter()
                 .append('circle')
                 .attr({
-                    'cx': function(d, i) { return d.avg * 125 - 30; },
-                    'cy': function(d, i) { return d.count * 1.4 + 10; },
-                    'r': function(d, i) { return 4; },
+                    'cx': function(d, i) {
+                        return d.avg * 125 - 30;
+                    },
+                    'cy': function(d, i) {
+                        return d.count * 1.4 + 10;
+                    },
+                    'r': function(d, i) {
+                        return 4;
+                    },
                     'fill': function(d, i) {
                         var genres_array = d.genres.split('|');
-                        
+
                         // check display color includes in selected gen's colors
                         var i = Math.floor(Math.random() * genres_array.length);
                         while (selected_genres.indexOf(genres_array[i]) === -1) {
                             // console.log(genres_array[i]);
                             i = Math.floor(Math.random() * genres_array.length);
-                         }
+                        }
 
                         var genre = genres_array[i];
-                        
+
                         for (var i = 0; i < pairs.length; i++) {
                             if (genre === pairs[i].genre) {
                                 return pairs[i].color;
@@ -206,5 +220,5 @@ function mouseClickOnButton() {
                 .on('mouseover', mouseOver)
                 .on('mouseout', mouseOut)
                 .on('click', mouseClickOnCircle);
-    });
+        });
 }
