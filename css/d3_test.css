@@ -40,10 +40,20 @@ div {
 }
 
 #div-bottom {
-    display: block;
-    width: 100%;
+    display: none;
+    margin: 0 auto;
+    width: 80%;
     height: 800px;
 }
+
+#div-bottom h1 {
+    display: none;
+}
+
+#div-bottom p {
+    display: none;
+}
+
 
 .tag {
     /*margin: 2px 2px;*/

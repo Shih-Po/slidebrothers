@@ -129,15 +129,23 @@ function mouseOut(d, i) {
 function mouseClickOnCircle(d, i) {
     $('#div-right img').remove();
     $('#h3-title').remove();
+    $('#div-bottom h1').remove();
+    $('#div-bottom p').remove();
     var id = 'tt' + d.imdbId,
-        omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=short&r=json';
+        omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=long&r=json';
 
     // $('#div-right').append('<h3 id="h3-title">' + d.title + '</h3>');
     $.getJSON(omdbURL, function(data) {
         $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
+        $('body').append('<div id="div-bottom"></div>');
+        $('#div-bottom').append('<h1>' + data.Title + '</h1>');
+        $('#div-bottom').append('<p>' + data.Plot + '</p>');
     });
     $('#div-right').click(function() {
+        $('#div-bottom').show();
         $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 800);
+        $('#div-bottom h1').show(800);
+        $('#div-bottom p').show(800);
     });
 }
 
