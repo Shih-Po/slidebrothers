@@ -131,7 +131,7 @@ function mouseClickOnCircle(d, i) {
     $('#h3-title').remove();
     $('#div-bottom h1').remove();
     $('#div-bottom p').remove();
-    var id = 'tt' + d.imdbId,
+    var id = d.imdbId,
         omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=long&r=json';
 
     // $('#div-right').append('<h3 id="h3-title">' + d.title + '</h3>');

@@ -2,7 +2,7 @@
 $servername = "127.0.0.1";
 $username = "root";
 // $password = "courage00";
-$password = "1";
+$password = "courage00";
 $dbname = "movie";
 
 // Create connection
@@ -17,8 +17,8 @@ if ($genres == null) {
     echo('[]');
 }
 else {
-$sql = "SELECT imdbId, title, genres, count, avg, std
-        FROM data_2
+$sql = "SELECT imdbID, Title, genres, lensCount, lensAvg
+        FROM data_merged
         WHERE ";
 foreach($genres as $genre){
     $sql .= "genres LIKE '%" . $genre . "%' OR ";
@@ -31,12 +31,11 @@ $result = $conn->query($sql);
 $outp = "";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     if ($outp != "") {$outp .= ",";}
-    $outp .= '{"imdbId":"' . $rs["imdbId"] . '",';
-    $outp .= '"title":"'   . $rs["title"]  . '",';
-    $outp .= '"genres":"'  . $rs["genres"] . '",';
-    $outp .= '"count":"'   . $rs["count"]  . '",';
-    $outp .= '"avg":"'     . $rs["avg"]    . '",'; 
-    $outp .= '"std":"'     . $rs["std"]    . '"}'; 
+    $outp .= '{"imdbId":"' . $rs["imdbID"]     . '",';
+    $outp .= '"title":"'   . $rs["Title"]      . '",';
+    $outp .= '"genres":"'  . $rs["genres"]     . '",';
+    $outp .= '"count":"'   . $rs["lensCount"]  . '",';
+    $outp .= '"avg":"'     . $rs["lensAvg"]    . '"}'; 
 }
 $outp ='['.$outp.']';
 $conn->close();
