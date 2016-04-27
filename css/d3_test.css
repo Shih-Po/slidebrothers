@@ -5,7 +5,7 @@
 
 header {
     text-align: left;
-    padding: 0 20px;
+    padding: 0 60px;
 }
 
 header h1 {
@@ -85,4 +85,11 @@ circle:hover {
 
 #div-right img {
     height: 460px;
+    transition: -webkit-filter 1s;
+    -webkit-filter:brightness(0.6);
+}
+
+#div-right img:hover {
+    transition: -webkit-filter .5s;
+    -webkit-filter:brightness(1);
 }
