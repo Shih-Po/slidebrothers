@@ -6,7 +6,7 @@ var pairs = [{
     "color": "#e9724c"
 }, {
     "genre": "Animation",
-    "color": "#c5283d"
+    "color": "#12664F"
 }, {
     "genre": "Children",
     "color": "#fee2c8"
@@ -18,7 +18,7 @@ var pairs = [{
     "color": "#576CA8"
 }, {
     "genre": "Documentary",
-    "color": "#242423"
+    "color": "#00008B"
 }, {
     "genre": "Drama",
     "color": "#809DE1"
@@ -27,22 +27,22 @@ var pairs = [{
     "color": "#d999b9"
 }, {
     "genre": "Film-Noir",
-    "color": "#de3ca0"
+    "color": "#9db997"
 }, {
     "genre": "Horror",
     "color": "#255f85 "
 }, {
     "genre": "Musical",
-    "color": "#12664F"
+    "color": "#BA55D3"
 }, {
     "genre": "Mystery",
-    "color": "#774E24 "
+    "color": "#90e0f3"
 }, {
     "genre": "Romance",
-    "color": "#9db997"
+    "color": "#c5283d"
 }, {
     "genre": "Sci-Fi",
-    "color": "#90e0f3"
+    "color": "#CD853F"
 }, {
     "genre": "Thriller",
     "color": "#b8b3e9"
@@ -52,6 +52,21 @@ var pairs = [{
 }, {
     "genre": "Western",
     "color": "#d17b88"
+}, {
+    "genre": "1980-",
+    "color": "#242423"
+}, {
+    "genre": "1980~2000",
+    "color": "#242423"
+}, {
+    "genre": "2000+",
+    "color": "#242423"
+}, {
+    "genre": "All",
+    "color": "#242423"
+}, {
+    "genre": "None",
+    "color": "#DDDDDD"
 }];
 
 
@@ -140,6 +155,9 @@ function mouseClickOnCircle(d, i) {
         $('body').append('<div id="div-bottom"></div>');
         $('#div-bottom').append('<h1>' + data.Title + '</h1>');
         $('#div-bottom').append('<p>' + data.Plot + '</p>');
+        $('#div-bottom').append('<p>' + data.imdbRating + '</p>');
+        $('#div-bottom').append('<p>' + data.imdbVotes + '</p>');
+        $('#div-bottom').append('<p>' + data.Year + '</p>');
     });
     $('#div-right').click(function() {
         $('#div-bottom').show();
@@ -154,32 +172,58 @@ function mouseClickOnButton() {
     //alert('ok');
     // $(this).toggleClass( 'clicked' );
     var col = $(this).css("background-color");
-
-    if (col != "rgb(255, 250, 250)") {
-        $(this).css({
-            "background-color": "rgb(255, 250, 250)",
-            "color": "silver",
-        });
-    }
-    if (col == "rgb(255, 250, 250)") {
-        var val = $(this).attr("value");
-        $(this).css({
-            "background-color": val,
-            "color": "white"
-        });
-    }
-
+    
     // 2. Renew circles of map
     clicked = $(this).children().text();
+    if (clicked == 'All') {
+        selected_genres = ["Action",
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Crime",
+            "Documentary",
+            "Drama",
+            "Fantasy",
+            "Film-Noir",
+            "Horror",
+            "Musical",
+            "Mystery",
+            "Romance",
+            "Sci-Fi",
+            "Thriller",
+            "War",
+            "Western"
+        ];
+    }
+    else if (clicked == 'None') {
+        selected_genres = [];
+    }
+    else {
+        if (col != "rgb(255, 250, 250)") {
+            $(this).css({
+                "background-color": "rgb(255, 250, 250)",
+                "color": "silver",
+            });
+        }
+        if (col == "rgb(255, 250, 250)") {
+            var val = $(this).attr("value");
+            $(this).css({
+                "background-color": val,
+                "color": "white"
+            });
+        }
+        function checkExist(genre) {
+            return genre == clicked;
+        }
+        if (selected_genres.find(checkExist) == clicked) {
+            selected_genres.splice(selected_genres.indexOf(clicked), 1);
+        } else {
+            selected_genres.push(clicked);
+        }
+    }
     // alert(clicked);
-    function checkExist(genre) {
-        return genre == clicked;
-    }
-    if (selected_genres.find(checkExist) == clicked) {
-        selected_genres.splice(selected_genres.indexOf(clicked), 1);
-    } else {
-        selected_genres.push(clicked);
-    }
+    
 
     // alert(genres);
     $.post("conn.php", {
@@ -196,10 +240,10 @@ function mouseClickOnButton() {
                 .append('circle')
                 .attr({
                     'cx': function(d, i) {
-                        return d.avg * 125 - 30;
+                        return d.count / 200 - 10;
                     },
                     'cy': function(d, i) {
-                        return d.count * 1.4 + 10;
+                        return d.avg * 80 - 300;
                     },
                     'r': function(d, i) {
                         return 4;

@@ -15,7 +15,8 @@
 </head>
 <body>
     <header>
-        <h1>Push every movie you love.</h1>
+        <img src="data/banner.jpg" style="max-width: 100%" />
+        <!-- <h1>Push every movie you love.</h1> -->
     </header>
     <div id="container">
         <div id="div-left" ng-app="myApp" ng-controller="genresCtrl">
@@ -58,7 +59,8 @@ var selected_genres = ["Action",
     "Thriller",
     "War",
     "Western"
-]
+];
+
 $.post("conn.php", {
         genres: selected_genres
     },
@@ -83,7 +85,7 @@ $.post("conn.php", {
             });
         //svg格線
         var line1 = svg.append('g').selectAll('line')
-            .data(d3.range(0, 1200, 20)).enter().append('line')
+            .data(d3.range(0, 1600, 20)).enter().append('line')
             .attr({
                 'x1': function(d) {
                     return d;
@@ -103,7 +105,7 @@ $.post("conn.php", {
                 'y1': function(d) {
                     return d;
                 },
-                'x2': 1000,
+                'x2': 1600,
                 'y2': function(d) {
                     return d;
                 },
@@ -118,10 +120,14 @@ $.post("conn.php", {
             .append('circle')
             .attr({
                 'cx': function(d, i) {
-                    return d.avg * 125 - 30;
+                    if (d.count < 20000) {
+                        return d.count / 20;
+                    } else {
+                        return d.count / 1000;
+                    }
                 },
                 'cy': function(d, i) {
-                    return d.count * 1.4 + 10;
+                    return d.avg * 80 - 300;
                 },
                 'r': 4,
                 'fill': function(d, i) {
@@ -141,6 +147,16 @@ $.post("conn.php", {
             .on('click', mouseClickOnCircle);
 
         $('body div#div-left div.tag')
+            // .on('mousedown', function(){
+            //     if ($(this).children().text() == "All" || $(this).children().text() == "None") {
+            //          $(this).css({ "background-color": "#7B7B7B" });
+            //     }
+            // })
+            // .on('click', function(){
+            //     if ($(this).children().text() == "All" || $(this).children().text() == "None") {
+            //          $(this).css({ "background-color": "black", "transition":"background-color 0.5s" });
+            //     }
+            // })
             .on('click', mouseClickOnButton);
     });
 </script>
