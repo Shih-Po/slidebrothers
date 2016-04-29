@@ -12,3 +12,4 @@ dmerged %>% filter(Year > 1981, Year < 2000) %>% nrow() # 3307
 dmerged %>% filter(Year > 2001) %>% nrow() # 3891
 
 dmerged %>% filter(imdbVotes > 20000) %>% nrow()
+dmerged %>% filter(imdbVotes > 20000, imdbVotes < 200000) %>% nrow()

@@ -1,73 +1,94 @@
 var pairs = [{
-    "genre": "Action",
-    "color": "#D9D375"
-}, {
-    "genre": "Adventure",
-    "color": "#e9724c"
-}, {
-    "genre": "Animation",
-    "color": "#12664F"
-}, {
-    "genre": "Children",
-    "color": "#fee2c8"
-}, {
-    "genre": "Comedy",
-    "color": "#CEEC97"
-}, {
-    "genre": "Crime",
-    "color": "#576CA8"
-}, {
-    "genre": "Documentary",
-    "color": "#00008B"
-}, {
-    "genre": "Drama",
-    "color": "#809DE1"
-}, {
-    "genre": "Fantasy",
-    "color": "#d999b9"
-}, {
-    "genre": "Film-Noir",
-    "color": "#9db997"
-}, {
-    "genre": "Horror",
-    "color": "#255f85 "
-}, {
-    "genre": "Musical",
-    "color": "#BA55D3"
-}, {
-    "genre": "Mystery",
-    "color": "#90e0f3"
-}, {
-    "genre": "Romance",
-    "color": "#c5283d"
-}, {
-    "genre": "Sci-Fi",
-    "color": "#CD853F"
-}, {
-    "genre": "Thriller",
-    "color": "#b8b3e9"
-}, {
-    "genre": "War",
-    "color": "#5d3d62"
-}, {
-    "genre": "Western",
-    "color": "#d17b88"
-}, {
-    "genre": "1980-",
-    "color": "#242423"
-}, {
-    "genre": "1980~2000",
-    "color": "#242423"
-}, {
-    "genre": "2000+",
-    "color": "#242423"
-}, {
-    "genre": "All",
-    "color": "#242423"
-}, {
-    "genre": "None",
-    "color": "#DDDDDD"
-}];
+                "genre": "Action",
+                "color": "#D9D375"
+            }, {
+                "genre": "Adventure",
+                "color": "#e9724c"
+            }, {
+                "genre": "Animation",
+                "color": "#12664F"
+            }, {
+                "genre": "Children",
+                "color": "#fee2c8"
+            }, {
+                "genre": "Comedy",
+                "color": "#CEEC97"
+            }, {
+                "genre": "Crime",
+                "color": "#576CA8"
+            }, {
+                "genre": "Documentary",
+                "color": "#00008B"
+            }, {
+                "genre": "Drama",
+                "color": "#809DE1"
+            }, {
+                "genre": "Fantasy",
+                "color": "#d999b9"
+            }, {
+                "genre": "Film-Noir",
+                "color": "#9db997"
+            }, {
+                "genre": "Horror",
+                "color": "#255f85 "
+            }, {
+                "genre": "Musical",
+                "color": "#BA55D3"
+            }, {
+                "genre": "Mystery",
+                "color": "#90e0f3"
+            }, {
+                "genre": "Romance",
+                "color": "#c5283d"
+            }, {
+                "genre": "Sci-Fi",
+                "color": "#CD853F"
+            }, {
+                "genre": "Thriller",
+                "color": "#b8b3e9"
+            }, {
+                "genre": "War",
+                "color": "#5d3d62"
+            }, {
+                "genre": "Western",
+                "color": "#d17b88"
+            }, {
+                "genre": "1980-",
+                "color": "#242423"
+            }, {
+                "genre": "1980~2000",
+                "color": "#242423"
+            }, {
+                "genre": "2000+",
+                "color": "#242423"
+            }, {
+                "genre": "All",
+                "color": "#242424"
+            }, {
+                "genre": "None",
+                "color": "#DDDDDD"
+            }];
+
+var selected_genres = ["Action",
+                        "Adventure",
+                        "Animation",
+                        "Children",
+                        "Comedy",
+                        "Crime",
+                        "Documentary",
+                        "Drama",
+                        "Fantasy",
+                        "Film-Noir",
+                        "Horror",
+                        "Musical",
+                        "Mystery",
+                        "Romance",
+                        "Sci-Fi",
+                        "Thriller",
+                        "War",
+                        "Western"
+                    ],
+    selected_year = [1, 1, 1];
 
 
 function mouseOver(d, i) {
@@ -193,13 +214,41 @@ function mouseClickOnButton() {
             "Sci-Fi",
             "Thriller",
             "War",
-            "Western"
+            "Western",
+            "All"
         ];
+        // select all the div.tag without 'None'
+        $(".tag[value!='#DDDDDD']").each(function(i, e){
+            $(e).css({
+                "background-color": pairs[i].color,
+                "color": "white"
+            });
+        });
     }
     else if (clicked == 'None') {
         selected_genres = [];
+        // select all the div.tag without 'All'
+        $(".tag[value!='#242424']").css({
+                "background-color": "rgb(255, 250, 250)",
+                "color": "silver",
+            });
     }
     else {
+        // change the selected_year array
+        if (clicked == "1980-") {
+            if (selected_year[0] == 1) { selected_year[0] = 0; } 
+            else { selected_year[0] = 1; }
+        }
+        if (clicked == "1980~2000") {
+            if (selected_year[1] == 1) { selected_year[1] = 0; }
+            else { selected_year[1] = 1; }
+        }
+        if (clicked == "2000+") {
+            if (selected_year[2] == 1) { selected_year[2] = 0; }
+            else { selected_year[2] = 1; }
+        }
+
+        // change buttons color
         if (col != "rgb(255, 250, 250)") {
             $(this).css({
                 "background-color": "rgb(255, 250, 250)",
@@ -226,8 +275,9 @@ function mouseClickOnButton() {
     
 
     // alert(genres);
-    $.post("conn.php", {
-            "genres": selected_genres
+    $.post("conn2.php", {
+            genres: selected_genres,
+            year: selected_year
         },
         function(data, status) {
             // alert("Data: " + data + "\nStatus: " + status);
@@ -251,7 +301,7 @@ function mouseClickOnButton() {
                     'fill': function(d, i) {
                         var genres_array = d.genres.split('|');
 
-                        // check display color includes in selected gen's colors
+                        // check display color includes in selected genres colors
                         var i = Math.floor(Math.random() * genres_array.length);
                         while (selected_genres.indexOf(genres_array[i]) === -1) {
                             // console.log(genres_array[i]);
@@ -259,7 +309,6 @@ function mouseClickOnButton() {
                         }
 
                         var genre = genres_array[i];
-
                         for (var i = 0; i < pairs.length; i++) {
                             if (genre === pairs[i].genre) {
                                 return pairs[i].color;

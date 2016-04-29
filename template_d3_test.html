@@ -41,28 +41,9 @@ angular.module('myApp', []).controller('genresCtrl', function($scope) {
 });
 </script>
 <script>
-var selected_genres = ["Action",
-    "Adventure",
-    "Animation",
-    "Children",
-    "Comedy",
-    "Crime",
-    "Documentary",
-    "Drama",
-    "Fantasy",
-    "Film-Noir",
-    "Horror",
-    "Musical",
-    "Mystery",
-    "Romance",
-    "Sci-Fi",
-    "Thriller",
-    "War",
-    "Western"
-];
-
-$.post("conn.php", {
-        genres: selected_genres
+$.post("conn2.php", {
+        genres: selected_genres,
+        year: selected_year
     },
     function(data, status) {
         // alert("Data: " + data + "\nStatus: " + status);
