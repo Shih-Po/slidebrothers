@@ -38,7 +38,7 @@ else {
             }
             $sql .= "0)";
             $sql .= "ORDER BY RAND() 
-                LIMIT 500";
+                LIMIT 200";
             $result = $conn->query($sql);
             while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
                 if ($outp != "") {$outp .= ",";}
@@ -62,7 +62,7 @@ else {
             }
             $sql .= "0)";
             $sql .= "ORDER BY RAND() 
-                LIMIT 500";
+                LIMIT 200";
             $result = $conn->query($sql);
             while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
                 if ($outp != "") {$outp .= ",";}
@@ -85,7 +85,7 @@ else {
             }
             $sql .= "0)";
             $sql .= "ORDER BY RAND() 
-                LIMIT 500";
+                LIMIT 200";
             $result = $conn->query($sql);
             while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
                 if ($outp != "") {$outp .= ",";}

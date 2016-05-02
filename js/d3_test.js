@@ -182,9 +182,9 @@ function mouseClickOnCircle(d, i) {
     });
     $('#div-right').click(function() {
         $('#div-bottom').show();
-        $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 800);
-        $('#div-bottom h1').show(800);
-        $('#div-bottom p').show(800);
+        $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 200);
+        $('#div-bottom h1').show(600);
+        $('#div-bottom p').show(600);
     });
 }
 
@@ -197,26 +197,11 @@ function mouseClickOnButton() {
     // 2. Renew circles of map
     clicked = $(this).children().text();
     if (clicked == 'All') {
-        selected_genres = ["Action",
-            "Adventure",
-            "Animation",
-            "Children",
-            "Comedy",
-            "Crime",
-            "Documentary",
-            "Drama",
-            "Fantasy",
-            "Film-Noir",
-            "Horror",
-            "Musical",
-            "Mystery",
-            "Romance",
-            "Sci-Fi",
-            "Thriller",
-            "War",
-            "Western",
-            "All"
-        ];
+        selected_genres = ["Action", "Adventure", "Animation", "Children", "Comedy",
+            "Crime", "Documentary", "Drama", "Fantasy", "Film-Noir", "Horror", "Musical",
+            "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western",
+            "All" ];
+
         // select all the div.tag without 'None'
         $(".tag[value!='#DDDDDD']").each(function(i, e){
             $(e).css({
