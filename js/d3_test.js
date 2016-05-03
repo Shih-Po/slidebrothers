@@ -165,12 +165,14 @@ function mouseOut(d, i) {
 function mouseClickOnCircle(d, i) {
     $('#div-right img').remove();
     $('#h3-title').remove();
-    $('#div-bottom h1').remove();
+    $('#≠≠tom h1').remove();
     $('#div-bottom p').remove();
     var id = d.imdbId,
         omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=long&r=json';
 
     // $('#div-right').append('<h3 id="h3-title">' + d.title + '</h3>');
+
+    // 改寫為用 PHP 從 MySQL 抓
     $.getJSON(omdbURL, function(data) {
         $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
         $('body').append('<div id="div-bottom"></div>');

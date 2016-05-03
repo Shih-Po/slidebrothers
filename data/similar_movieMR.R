@@ -82,3 +82,11 @@ recommend_row = function(n) {
 }
 #cmp_recommend_row <- compiler::cmpfun(recommend_row)
 cmp_recommend_row <- cmpfun(recommend_row)
+
+# ---------------------------------------------------
+recommend_table <- lapply(1:3000, function(n){
+  cmp_recommend_row(n)
+}) %>% Reduce(f = rbind)
+recommend_table
+
+write.csv(recommend_table, file = "/Users/shipo/Projects/slidebrothers/data/recommend_table1_3000.csv")
