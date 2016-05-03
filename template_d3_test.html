@@ -101,14 +101,14 @@ $.post("conn2.php", {
             .append('circle')
             .attr({
                 'cx': function(d, i) {
-                    if (d.count < 20000) {
-                        return d.count / 20;
-                    } else {
-                        return d.count / 1000;
-                    }
+                    return d.count / 200 - 10;
                 },
                 'cy': function(d, i) {
-                    return d.avg * 80 - 300;
+                    if (d.avg > 9) {
+                        return 475
+                    } else {
+                        return d.avg * 100 - 400;
+                    }
                 },
                 'r': 4,
                 'fill': function(d, i) {

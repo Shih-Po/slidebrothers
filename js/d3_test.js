@@ -221,7 +221,8 @@ function mouseClickOnButton() {
             "Crime", "Documentary", "Drama", "Fantasy", "Film-Noir", "Horror", "Musical",
             "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western",
             "All" ];
-
+        selected_year = [1, 1, 1];
+        
         // select all the div.tag without 'None'
         $(".tag[value!='#DDDDDD']").each(function(i, e){
             $(e).css({
