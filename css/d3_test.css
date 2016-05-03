@@ -48,6 +48,11 @@ div {
     height: 800px;
 }
 
+#div-bottom img {
+    display: none;
+    height: 480px;
+}
+
 #div-bottom h1 {
     display: none;
 }

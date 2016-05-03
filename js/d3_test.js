@@ -165,26 +165,44 @@ function mouseOut(d, i) {
 function mouseClickOnCircle(d, i) {
     $('#div-right img').remove();
     $('#h3-title').remove();
-    $('#≠≠tom h1').remove();
+    $('#div-bottom h1').remove();
     $('#div-bottom p').remove();
-    var id = d.imdbId,
-        omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=long&r=json';
 
     // $('#div-right').append('<h3 id="h3-title">' + d.title + '</h3>');
-
+    var id = d.imdbId;
+    var omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=long&r=json';
     // 改寫為用 PHP 從 MySQL 抓
     $.getJSON(omdbURL, function(data) {
         $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
         $('body').append('<div id="div-bottom"></div>');
         $('#div-bottom').append('<h1>' + data.Title + '</h1>');
         $('#div-bottom').append('<p>' + data.Plot + '</p>');
-        $('#div-bottom').append('<p>' + data.imdbRating + '</p>');
-        $('#div-bottom').append('<p>' + data.imdbVotes + '</p>');
-        $('#div-bottom').append('<p>' + data.Year + '</p>');
     });
+
+    $.post("conn3.php", {
+            id: id
+        },
+        function(data, status) {
+            // alert("Data: " + data + "\nStatus: " + status);
+            data = JSON.parse(data);
+            // $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
+            var omdbURL2 = 'http://www.omdbapi.com/?i=' + data[0].r1 + '&plot=long&r=json';
+            var omdbURL3 = 'http://www.omdbapi.com/?i=' + data[0].r2 + '&plot=long&r=json';
+            var omdbURL4 = 'http://www.omdbapi.com/?i=' + data[0].r3 + '&plot=long&r=json';
+            $.getJSON(omdbURL2, function(data) {
+                $('#div-bottom').append('<img src=\"' + data.Poster + '\"></img>');
+            });
+            $.getJSON(omdbURL3, function(data) {
+                $('#div-bottom').append('<img src=\"' + data.Poster + '\"></img>');
+            });
+            $.getJSON(omdbURL4, function(data) {
+                $('#div-bottom').append('<img src=\"' + data.Poster + '\"></img>');
+            });
+        })
     $('#div-right').click(function() {
         $('#div-bottom').show();
         $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 200);
+        $('#div-bottom img').show(600);
         $('#div-bottom h1').show(600);
         $('#div-bottom p').show(600);
     });
@@ -214,6 +232,7 @@ function mouseClickOnButton() {
     }
     else if (clicked == 'None') {
         selected_genres = [];
+        selected_year = [0, 0, 0];
         // select all the div.tag without 'All'
         $(".tag[value!='#242424']").css({
                 "background-color": "rgb(255, 250, 250)",
