@@ -165,12 +165,14 @@ function mouseOut(d, i) {
 function mouseClickOnCircle(d, i) {
     $('#div-right img').remove();
     $('#h3-title').remove();
-    $('#div-bottom h1').remove();
+    $('#≠≠tom h1').remove();
     $('#div-bottom p').remove();
     var id = d.imdbId,
         omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=long&r=json';
 
     // $('#div-right').append('<h3 id="h3-title">' + d.title + '</h3>');
+
+    // 改寫為用 PHP 從 MySQL 抓
     $.getJSON(omdbURL, function(data) {
         $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
         $('body').append('<div id="div-bottom"></div>');
@@ -182,9 +184,9 @@ function mouseClickOnCircle(d, i) {
     });
     $('#div-right').click(function() {
         $('#div-bottom').show();
-        $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 800);
-        $('#div-bottom h1').show(800);
-        $('#div-bottom p').show(800);
+        $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 200);
+        $('#div-bottom h1').show(600);
+        $('#div-bottom p').show(600);
     });
 }
 
@@ -197,26 +199,11 @@ function mouseClickOnButton() {
     // 2. Renew circles of map
     clicked = $(this).children().text();
     if (clicked == 'All') {
-        selected_genres = ["Action",
-            "Adventure",
-            "Animation",
-            "Children",
-            "Comedy",
-            "Crime",
-            "Documentary",
-            "Drama",
-            "Fantasy",
-            "Film-Noir",
-            "Horror",
-            "Musical",
-            "Mystery",
-            "Romance",
-            "Sci-Fi",
-            "Thriller",
-            "War",
-            "Western",
-            "All"
-        ];
+        selected_genres = ["Action", "Adventure", "Animation", "Children", "Comedy",
+            "Crime", "Documentary", "Drama", "Fantasy", "Film-Noir", "Horror", "Musical",
+            "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western",
+            "All" ];
+
         // select all the div.tag without 'None'
         $(".tag[value!='#DDDDDD']").each(function(i, e){
             $(e).css({
