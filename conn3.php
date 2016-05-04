@@ -1,8 +1,8 @@
 <?php
 $servername = "127.0.0.1";
 $username = "root";
-//$password = "courage00";
-$password = "1";
+$password = "courage00";
+// $password = "1";
 $dbname = "movie";
 
 // Create connection
