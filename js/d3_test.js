@@ -165,6 +165,8 @@ function mouseOut(d, i) {
 function mouseClickOnCircle(d, i) {
     $('#div-right img').remove();
     $('#h3-title').remove();
+    $('#div-bottom').remove();
+    $('#div-bottom img').remove();
     $('#div-bottom h1').remove();
     $('#div-bottom p').remove();
 
