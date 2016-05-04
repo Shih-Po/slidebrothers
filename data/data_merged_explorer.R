@@ -1,5 +1,5 @@
 library(dplyr)
-dmerged_path <- "/Users/shipo/Projects/slidebrothers/data/data_merged.csv" 
+dmerged_path <- "/Users/shipo/Projects/slidebrothers/data/data_merged_r.csv" 
 dmerged <- read.csv(dmerged_path)
 
 # transfer col year from factor to numeric 
