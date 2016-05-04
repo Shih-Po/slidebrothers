@@ -55,10 +55,12 @@ div {
 
 #div-bottom h1 {
     display: none;
+    text-align: left;
 }
 
 #div-bottom p {
     display: none;
+    text-align: left;
 }
 
 

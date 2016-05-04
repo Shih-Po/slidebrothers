@@ -179,6 +179,7 @@ function mouseClickOnCircle(d, i) {
         $('body').append('<div id="div-bottom"></div>');
         $('#div-bottom').append('<h1>' + data.Title + '</h1>');
         $('#div-bottom').append('<p>' + data.Plot + '</p>');
+        $('#div-bottom').append('<h1>' + 'Recommendation' + '</h1>');
     });
 
     $.post("conn3.php", {
