@@ -48,9 +48,16 @@ div {
     height: 800px;
 }
 
+#div-bottom-left, #div-bottom-middle, #div-bottom-right {
+    margin-left: 20px;
+    float: left;
+    display: block;
+    width: 30%;
+}
+
 #div-bottom img {
     display: none;
-    height: 480px;
+    height: 320px;
 }
 
 #div-bottom h1 {

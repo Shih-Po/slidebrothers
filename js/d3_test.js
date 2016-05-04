@@ -166,20 +166,17 @@ function mouseClickOnCircle(d, i) {
     $('#div-right img').remove();
     $('#h3-title').remove();
     $('#div-bottom').remove();
-    $('#div-bottom img').remove();
-    $('#div-bottom h1').remove();
-    $('#div-bottom p').remove();
 
     // $('#div-right').append('<h3 id="h3-title">' + d.title + '</h3>');
     var id = d.imdbId;
     var omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=long&r=json';
+    $('body').append('<div id="div-bottom"></div>');
+    $('#div-right').append('<img src="data/Poster/' + id + '.jpg"></img>');
     // 改寫為用 PHP 從 MySQL 抓
     $.getJSON(omdbURL, function(data) {
-        $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
-        $('body').append('<div id="div-bottom"></div>');
-        $('#div-bottom').append('<h1>' + data.Title + '</h1>');
-        $('#div-bottom').append('<p>' + data.Plot + '</p>');
-        $('#div-bottom').append('<h1>' + 'Recommendation' + '</h1>');
+        $('#div-bottom').prepend('<h1>' + 'Recommendation' + '</h1>');
+        $('#div-bottom').prepend('<p>' + data.Plot + '</p>');
+        $('#div-bottom').prepend('<h1>' + data.Title + '</h1>');
     });
 
     $.post("conn3.php", {
@@ -187,27 +184,30 @@ function mouseClickOnCircle(d, i) {
         },
         function(data, status) {
             // alert("Data: " + data + "\nStatus: " + status);
-            data = JSON.parse(data);
-            // $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
-            var omdbURL2 = 'http://www.omdbapi.com/?i=' + data[0].r1 + '&plot=long&r=json';
-            var omdbURL3 = 'http://www.omdbapi.com/?i=' + data[0].r2 + '&plot=long&r=json';
-            var omdbURL4 = 'http://www.omdbapi.com/?i=' + data[0].r3 + '&plot=long&r=json';
-            $.getJSON(omdbURL2, function(data) {
-                $('#div-bottom').append('<img src=\"' + data.Poster + '\"></img>');
-            });
-            $.getJSON(omdbURL3, function(data) {
-                $('#div-bottom').append('<img src=\"' + data.Poster + '\"></img>');
-            });
-            $.getJSON(omdbURL4, function(data) {
-                $('#div-bottom').append('<img src=\"' + data.Poster + '\"></img>');
-            });
-        })
-    $('#div-right').click(function() {
-        $('#div-bottom').show();
-        $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 200);
-        $('#div-bottom img').show(600);
-        $('#div-bottom h1').show(600);
-        $('#div-bottom p').show(600);
+        data = JSON.parse(data);
+        // $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
+        $('#div-bottom').append('<div id="div-bottom-left"><img src="data/Poster/' + data[0].r1 + '.jpg"></img></div>');
+        $('#div-bottom').append('<div id="div-bottom-middle"><img src="data/Poster/' + data[0].r2 + '.jpg"></img></div>');
+        $('#div-bottom').append('<div id="div-bottom-right"><img src="data/Poster/' + data[0].r3 + '.jpg"></img></div>');
+        var omdbURL2 = 'http://www.omdbapi.com/?i=' + data[0].r1 + '&plot=long&r=json';
+        var omdbURL3 = 'http://www.omdbapi.com/?i=' + data[0].r2 + '&plot=long&r=json';
+        var omdbURL4 = 'http://www.omdbapi.com/?i=' + data[0].r3 + '&plot=long&r=json';
+        $.getJSON(omdbURL2, function(data) {
+            $('#div-bottom-left').append('<h3>' + data.Title + '</h3><p>' + data.Plot + '</p>');
+        });
+        $.getJSON(omdbURL3, function(data) {
+            $('#div-bottom-middle').append('<h3>' + data.Title + '</h3><p>' + data.Plot + '</p>');
+        });
+        $.getJSON(omdbURL4, function(data) {
+            $('#div-bottom-right').append('<h3>' + data.Title + '</h3><p>' + data.Plot + '</p>');
+        });
+        $('#div-right').click(function() {
+            $('#div-bottom').show();
+            $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 200);
+            $('#div-bottom img').show(600);
+            $('#div-bottom h1').show(600);
+            $('#div-bottom p').show(600);
+        });
     });
 }
 
