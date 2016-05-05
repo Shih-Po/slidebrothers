@@ -53,6 +53,7 @@ div {
     float: left;
     display: block;
     width: 30%;
+    color: white;
 }
 
 #div-bottom img {
@@ -72,7 +73,7 @@ div {
 }
 
 #div-bottom p {
-    display: none;
+    /*display: none;*/
     text-align: left;
 }
 

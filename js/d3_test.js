@@ -206,7 +206,6 @@ function mouseClickOnCircle(d, i) {
             $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 200);
             $('#div-bottom img').show(400);
             $('#div-bottom h1').show(400);
-            $('#div-bottom p').show(400);
         });
     });
 }
@@ -218,7 +217,7 @@ function mouseClickOnImg() {
 
     // $('#div-right').append('<h3 id="h3-title">' + d.title + '</h3>');
     
-    console.log(id);
+    // console.log(id);
     var omdbURL = 'http://www.omdbapi.com/?i=' + id + '&plot=long&r=json';
     // $('body').append('<div id="div-bottom"></div>');
     // $('#div-right').append('<img src="data/Poster/' + id + '.jpg"></img>');
@@ -236,13 +235,16 @@ function mouseClickOnImg() {
             // alert("Data: " + data + "\nStatus: " + status);
         data = JSON.parse(data);
         // $('#div-right').append('<img src=\"' + data.Poster + '\"></img>');
+        console.log(data[0].r1 + ', ' + data[0].r2 + ', ' + data[0].r3);
         $('#div-bottom').append('<div id="div-bottom-left"><img id="' + data[0].r1 + '" src="data/Poster/' + data[0].r1 + '.jpg"></img></div>');
         $('#div-bottom').append('<div id="div-bottom-middle"><img id="' + data[0].r2 + '" src="data/Poster/' + data[0].r2 + '.jpg"></img></div>');
         $('#div-bottom').append('<div id="div-bottom-right"><img id="' + data[0].r3 + '" src="data/Poster/' + data[0].r3 + '.jpg"></img></div>');
         $('#div-bottom img').on("click",mouseClickOnImg);
+
         var omdbURL2 = 'http://www.omdbapi.com/?i=' + data[0].r1 + '&plot=long&r=json';
         var omdbURL3 = 'http://www.omdbapi.com/?i=' + data[0].r2 + '&plot=long&r=json';
         var omdbURL4 = 'http://www.omdbapi.com/?i=' + data[0].r3 + '&plot=long&r=json';
+        
         $.getJSON(omdbURL2, function(data) {
             $('#div-bottom-left').append('<h3>' + data.Title + '</h3><p>' + data.Plot + '</p>');
         });
@@ -254,7 +256,6 @@ function mouseClickOnImg() {
         });
         $('#div-bottom img').show(400);
         $('#div-bottom h1').show(400);
-        $('#div-bottom p').show(400);
     });
 }
 function mouseClickOnButton() {
