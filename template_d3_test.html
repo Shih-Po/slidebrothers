@@ -101,13 +101,21 @@ $.post("conn2.php", {
             .append('circle')
             .attr({
                 'cx': function(d, i) {
-                    return d.count / 200 - 10;
+                    if (d.count < 40000) {
+                        return d.count / 80 + 2; 
+                    } else if (d.count > 60000 && d.count < 600000) {
+                        return d.count / 1600 + 200;
+                    } else if (d.count > 600000) {
+                            return d.count / 5000 + 450;
+                    } else {
+                        return d.count / 100;  
+                    }
                 },
                 'cy': function(d, i) {
-                    if (d.avg > 9) {
-                        return 475
+                    if (d.avg > 8.7) {
+                        return 482;
                     } else {
-                        return d.avg * 100 - 400;
+                        return d.avg * 100 - 420;
                     }
                 },
                 'r': 4,

@@ -58,6 +58,12 @@ div {
 #div-bottom img {
     display: none;
     height: 360px;
+    transition: -webkit-filter 1s;
+    -webkit-filter:brightness(0.6);
+}
+#div-bottom img:hover {
+    transition: -webkit-filter .5s;
+    -webkit-filter:brightness(1);
 }
 
 #div-bottom h1 {

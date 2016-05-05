@@ -118,10 +118,10 @@ function mouseOver(d, i) {
         .append('rect')
         .attr({
             'y': function(d, i) {
-                if (d.count * 1.40 < 400) {
-                    return d.count * 1.40 + 30;
+                if (d.avg * 100 - 380 > 400) {
+                    return d.avg * 100 - 460;
                 } else {
-                    return d.count * 1.40 - 30;
+                    return d.avg * 100 - 380;
                 }
             },
             'width': '1280px',
@@ -137,10 +137,10 @@ function mouseOver(d, i) {
             // 'x': function(d, i) { return d.avg * 115; },
             'x': '50%',
             'y': function(d, i) {
-                if (d.count * 1.40 < 400) {
-                    return d.count * 1.40 + 44;
+            if (d.avg * 100 - 380 > 400) {
+                    return d.avg * 100 - 446;
                 } else {
-                    return d.count * 1.40 - 16;
+                    return d.avg * 100 - 366;
                 }
             },
             'font-size': '12',
@@ -148,7 +148,7 @@ function mouseOver(d, i) {
             'fill': 'white'
         })
         .text(function(d, i) {
-            return d.title;
+            return d.title + ", " + d.avg + ", " + d.count;;
         });
 }
 
@@ -204,9 +204,9 @@ function mouseClickOnCircle(d, i) {
         $('#div-right').click(function() {
             $('#div-bottom').show();
             $('html, body').animate({ scrollTop: $('#div-bottom').offset().top }, 200);
-            $('#div-bottom img').show(600);
-            $('#div-bottom h1').show(600);
-            $('#div-bottom p').show(600);
+            $('#div-bottom img').show(400);
+            $('#div-bottom h1').show(400);
+            $('#div-bottom p').show(400);
         });
     });
 }
@@ -300,10 +300,22 @@ function mouseClickOnButton() {
                 .append('circle')
                 .attr({
                     'cx': function(d, i) {
-                        return d.count / 200 - 10;
+                        if (d.count < 40000) {
+                            return d.count / 80 + 2; 
+                        } else if (d.count > 60000 && d.count < 600000) {
+                            return d.count / 1600 + 200;
+                        } else if (d.count > 600000) {
+                                return d.count / 5000 + 450;
+                        } else {
+                            return d.count / 100;  
+                        }
                     },
                     'cy': function(d, i) {
-                        return d.avg * 80 - 300;
+                        if (d.avg > 8.7) {
+                            return 482;
+                        } else {
+                            return d.avg * 100 - 420;
+                        }
                     },
                     'r': function(d, i) {
                         return 4;

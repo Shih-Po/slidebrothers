@@ -1,3 +1,5 @@
 *.DS_Store
 data/Poster
 data/Poster.zip
+ml_latest-small
+.ipython_checkpoints
