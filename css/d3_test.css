@@ -5,7 +5,7 @@
 
 header {
     display: block;
-    margin: 20px;
+    margin: 70px;
     text-align: center;
 }
 
@@ -57,7 +57,7 @@ div {
 
 #div-bottom img {
     display: none;
-    height: 360px;
+    height: 300px;
     transition: -webkit-filter 1s;
     -webkit-filter:brightness(0.6);
 }
@@ -97,6 +97,7 @@ div {
     /*background-color: #FFA042;*/
     transition: -webkit-filter 1s;
 }
+
 circle:hover {
     r: 18px;
     stroke: white;
