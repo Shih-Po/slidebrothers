@@ -1,7 +1,9 @@
-^*.DS_Store
-^*.Rhistory
+# OS junk files
+*.DS_Store
 
+# others
 data/Poster
 data/Poster.zip
-ml_latest-small
-^*.ipython_checkpoints
+
+*.ipython_checkpoints
+*.Rhistory
