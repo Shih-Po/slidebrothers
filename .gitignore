@@ -1,5 +1,7 @@
-*.DS_Store
+^*.DS_Store
+^*.Rhistory
+
 data/Poster
 data/Poster.zip
 ml_latest-small
-.ipython_checkpoints
+^*.ipython_checkpoints
