@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/d3_test.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>d3_test</title>
+    <title>Movie Pusher</title>
 </head>
 <body>
     <header>
@@ -120,8 +120,16 @@ $.post("conn2.php", {
                 },
                 'r': 4,
                 'fill': function(d, i) {
-                        var genres = d.genres.split('|');
-                        var genre = genres[0];
+                        var genres_array = d.genres.split('|');
+
+                        // check display color includes in selected genres colors
+                        var i = Math.floor(Math.random() * genres_array.length);
+                        while (selected_genres.indexOf(genres_array[i]) === -1) {
+                            // console.log(genres_array[i]);
+                            i = Math.floor(Math.random() * genres_array.length);
+                        }
+
+                        var genre = genres_array[i];
                         for (var i = 0; i < pairs.length; i++) {
                             if (genre === pairs[i].genre) {
                                 return pairs[i].color;
