@@ -1,11 +1,10 @@
 # slidebrothers
 A movie recommender web app
 
-## Demo Video Link
+## Demo
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/QMcTs7gFGTs/0.jpg)](http://www.youtube.com/watch?v=QMcTs7gFGTs)
- - youtube 連結
- - 推薦以 1.25 倍速觀看
- 
+ - [Youtube Video](https://www.youtube.com/watch?v=QMcTs7gFGTs)
+
 ## In this project
 Collect Data 
  - Python
